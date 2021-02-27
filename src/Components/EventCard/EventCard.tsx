@@ -1,0 +1,69 @@
+import React from "react";
+import { Card } from "antd";
+import {Link} from 'react-router-dom';
+const eventDetails = {
+  eventName: "EventName",
+  eventDescription:
+    "Event description Event description Event description Event description Event description Event description Event description ",
+  eventTime: "5.30pm to 6.50pm"
+};
+
+const reg = {
+  isRegistered: true
+};
+interface EventProps{
+  id: number;
+  name: string;
+  date: string;
+  time: string;
+  description: string;
+  coverimg: string;
+  isregopen: boolean;
+}
+function EventCard(props:EventProps) {
+  return (
+    <div className="eventCard_mainWrapper">
+      <Link to={"/event/"+props.id}>
+        <Card
+          className="evcard"
+          title={props.name}
+          extra={
+            reg.isRegistered ? (
+              <h3>
+                <i>Registered</i>
+              </h3>
+            ) : (
+              ""
+            )
+          }
+          style={{
+            
+            backgroundImage: `url("https://images.unsplash.com/photo-1546593064-053d21199be1?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=668&q=80")`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            borderRadius: "15px"
+            
+          }}
+          bodyStyle={{ backgroundColor: "rgba(255,255,255,0.7)",
+          borderRadius: "0 0 15px 15px" }}
+          headStyle={{
+            backgroundColor: "rgba(255,255,255,0.7)",
+            fontSize: "200%",
+            borderRadius: "15px 15px 0 0"
+          }}
+          hoverable={true}
+        >
+          <h3>{props.description}</h3>
+          <h2>
+            <b> Date: {props.date}</b>
+          </h2>
+          <h2>
+            <b> Time: {props.time}</b>
+          </h2>
+        </Card>
+        </Link>
+    </div>
+  );
+}
+
+export default EventCard;

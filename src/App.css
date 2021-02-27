@@ -1,0 +1,100 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.App {
+  display: flex;
+  flex-direction: column;
+}
+.header_main {
+  display: flex;
+  width: 100%;
+  height: 200px;
+  background-color: none;
+  padding: 0;
+}
+.header_dash {
+  width: 100%;
+  height: 150px;
+  background-color: #eeffff;
+  padding: 0;
+}
+.header_title {
+  color: grey;
+  position: absolute;
+  left: 50%;
+  padding: 0;
+  transform: translate(-50%, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 90vw;
+  opacity: 1;
+  /* background-color: rgb(206, 119, 119); */
+  top: 95px;
+  /* overflow: hidden; */
+}
+.header_buttons {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+}
+.header_backbtn {
+  position: absolute;
+  top: 3%;
+  left: 5%;
+  transform: scale(1.4);
+}
+.header_logo {
+  height: 70px;
+  width: 70px;
+}
+.header_profile {
+  position: absolute;
+  right: 5%;
+  top: 3%;
+  transform: scale(1.4);
+}
+h1,
+p {
+  font-family: Lato;
+}
+
+.eventCard_mainWrapper {
+  /* padding: 100px; */
+  width: 90vw;
+  /* height: 90vh; */
+  position: relative;
+  margin: auto;
+}
+
+.evcard{
+  height: 100%;
+  width: 100%;
+  /* border-radius: 15px; */
+}
+.ant-card-body{
+  height: 100%;
+}
+.catCard_mainWrapper {
+  /* padding: 100px; */
+  width: 90vw;
+  height: 100px;
+  position: relative;
+  margin: auto;
+}
+.categorytext {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.catcard {
+  width: 100%;
+  height: 100%;
+
+}
