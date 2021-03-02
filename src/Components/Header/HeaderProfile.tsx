@@ -1,27 +1,19 @@
 import React from "react";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import {  Button, Avatar } from "antd";
-import useFitText from "use-fit-text";
 import { UserOutlined } from "@ant-design/icons";
-import { useHistory,Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 // const avatar = {
 //   avtrimage: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
 // };
-const eventDetails = {
-  event: {
-    eventName: "this is the maximum",
-    eventCategory: "event category"
-  }
-};
+
 interface HeaderProps{
   backonClick?: ()=> void ,
-  mainText: string,
   showBack: boolean
 }
 // function navigate() {}
-function Header(props: HeaderProps) {
-  const { fontSize, ref } = useFitText({ maxFontSize: 500, minFontSize: 100 });
+function HeaderProfile(props: HeaderProps) {
   let history = useHistory();
   return (
     <div className="header_main">
@@ -36,19 +28,13 @@ function Header(props: HeaderProps) {
               onClick={() => props.backonClick? props.backonClick(): history.goBack()}
             />}
           </div>
-          <img className ="header_logo" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="logo"/>
-          <div className="header_profile">
-            <Link to="/profile/">
-              <Avatar icon={<UserOutlined />} />
-            </Link>
-          </div>
         </div>
-        <div className="header_title" ref={ref} style={{ fontSize }}>
-          {props.mainText}
+        <div className="header_avatar" >
+              <Avatar icon={<UserOutlined />} size={100}/>
         </div>
       </div>
     </div>
   );
 }
 
-export default Header;
+export default HeaderProfile;

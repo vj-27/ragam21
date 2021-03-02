@@ -36,6 +36,20 @@ body {
   top: 95px;
   /* overflow: hidden; */
 }
+
+.header_avatar {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* background-color: rgb(206, 119, 119); */
+  /* overflow: hidden; */
+}
+
 .header_buttons {
   display: flex;
   padding: 10px;
@@ -98,3 +112,8 @@ p {
   height: 100%;
 
 }
+.center-text{
+  text-align: center;
+  
+}
+
