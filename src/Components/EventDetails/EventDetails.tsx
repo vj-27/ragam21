@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Tabs, Card } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import Header from '../../Components/Header/Header';
-import {useParams} from 'react-router-dom';
+import {useParams,Link} from 'react-router-dom';
 import {EventById} from '../../data';
 const { TabPane } = Tabs;
 interface ParamTypes {
@@ -12,6 +12,7 @@ interface ParamTypes {
 export default function EventDetails() {
 
   let { eId } = useParams<ParamTypes>();
+ 
 
   return (
     <>
@@ -30,6 +31,11 @@ export default function EventDetails() {
           View Results
         </Button>
         }
+        <Link to={"/myreg/"+eId} >
+        <Button type="primary" shape="round" className='buttons' >
+          Myregistration
+        </Button>
+        </Link> 
       </div>
       <div style={{ minWidth:"80%"}}>
         <Tabs defaultActiveKey="1" centered>

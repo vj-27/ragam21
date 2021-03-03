@@ -1,6 +1,7 @@
-var userEvents=[
+var UserEvents=[
     {
         id:1659,
+        name:'1659',
         status:'Submission Recieved',
         announcement:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
         isSubmitted:false,
@@ -19,4 +20,4 @@ var userEvents=[
     },
 ]
 
-export default userEvents
+export default UserEvents

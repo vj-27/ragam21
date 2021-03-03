@@ -98,3 +98,82 @@ p {
   height: 100%;
 
 }
+
+
+
+.myreg-status{
+    font-size: 20px;
+    background-color: cadetblue;
+    margin: 0px 2px;
+    border-radius: 5px;
+    padding-left: 2px;
+    padding-bottom: 0.001px;
+    display: flex;
+    justify-content: center;
+}
+.myreg-status .myreg-bold{
+    font-weight: 600;
+    margin: 2px;
+}
+.myreg-status p{
+    display: inline;
+    font-weight: 400;
+    margin: 2px;
+    font-size: 0.3em;
+}
+.announcement{
+    background-color: cadetblue;
+    margin: 5px 2px;
+    border-radius: 5px;
+    padding: 2px 4px;
+}
+.announcement h6 ,.team h6,.submission h6{
+    font-size: 0.4em;
+    margin: 0px;
+    margin-left: 10px;
+}
+.announcement p{
+    font-size: 0.2em;
+    margin: 6px 15px;
+}
+.team{
+    padding-bottom: 5px;
+    text-align: center;
+    display: flexbox;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    background-color: cadetblue;
+    margin: 5px 2px;
+    border-radius: 5px;
+}
+.team h5{
+    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 0.3em;
+    margin-top: 0px;
+}
+.teammembers{
+    margin-bottom: 0.2em;
+    margin-top: 0px;
+    font-size: 11px;
+}
+.team .button,.team .button:enabled{
+    font-size: small;
+    color: rgb(255, 255, 255);
+    background-color: cadetblue;
+    border: none;
+}
+.submission{
+    padding-bottom: 5px;
+    text-align: center;
+    display: flexbox;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    background-color: cadetblue;
+    margin: 5px 2px;
+    border-radius: 5px;
+
+}
+
