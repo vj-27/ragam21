@@ -1,6 +1,7 @@
 import React from "react";
 import { Card } from "antd";
 import {Link} from 'react-router-dom';
+import userEvents from '../../data1.js';
 const eventDetails = {
   eventName: "EventName",
   eventDescription:
@@ -21,6 +22,17 @@ interface EventProps{
   isregopen: boolean;
 }
 function EventCard(props:EventProps) {
+
+  let RegEvents: number[] = [];
+  var i;
+  function RegEventsID(){
+  for (i = 0; i < userEvents.length; i++) {
+      RegEvents.push(userEvents[i].id);
+    console.log(userEvents[i].id)
+    } 
+  };
+
+  RegEventsID();
   return (
     <div className="eventCard_mainWrapper">
       <Link to={"/event/"+props.id}>
@@ -28,7 +40,7 @@ function EventCard(props:EventProps) {
           className="evcard"
           title={props.name}
           extra={
-            reg.isRegistered ? (
+            RegEvents.includes(props.id)? (
               <h3>
                 <i>Registered</i>
               </h3>
