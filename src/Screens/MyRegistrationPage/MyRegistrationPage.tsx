@@ -132,7 +132,7 @@ export default function MyRegistationPage() {
 
             <Button 
               type="dashed"
-              onClick={() => null}
+              onClick={() => setisEdit(false)}
               style={{ width: '40%' ,display:"block",margin:'auto' }}
              
             >
