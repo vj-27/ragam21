@@ -1,6 +1,7 @@
 var userEvents=[
     {
         id:1659,
+        name:'1659',
         status:'Submission Recieved',
         announcement:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod',
         isSubmitted:false,
