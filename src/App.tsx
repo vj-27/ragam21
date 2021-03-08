@@ -38,6 +38,9 @@ function App() {
           <Route path="/event/:eId">
             <EventDetails/>
           </Route>
+          <Route path="/myreg/:eId">
+            <MyRegistationPage/>
+          </Route>
         </Switch>
       </Router>
     </div>
