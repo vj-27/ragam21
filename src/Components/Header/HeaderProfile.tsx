@@ -3,6 +3,7 @@ import { ArrowLeftOutlined } from "@ant-design/icons";
 import {  Button, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
+import { url } from "inspector";
 
 // const avatar = {
 //   avtrimage: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
@@ -17,7 +18,7 @@ function HeaderProfile(props: HeaderProps) {
   let history = useHistory();
   return (
     <div className="header_main">
-      <div className="header_dash">
+      <div className="header_dash" style={{backgroundImage: `url("https://wallpaperaccess.com/full/1261637.png")`}}>
         <div className="header_buttons">
 
           <div className="header_backbtn">

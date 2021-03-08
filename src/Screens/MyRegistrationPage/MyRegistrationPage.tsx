@@ -78,7 +78,7 @@ export default function MyRegistationPage() {
 
   return (
     <div>
-      <Header mainText={"Event " + eId} showBack={true} />
+      <Header mainText={"Event " + eId} showBack={true} dashimg="https://wallpaperaccess.com/full/1261637.png"/>
       <div className="myreg-status" ref={ref} style={{ fontSize }}>
         <p className="myreg-bold" >Registration Status: </p>
         <p>{UserEvents[i]["status"]} </p>

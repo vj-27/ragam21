@@ -3,7 +3,7 @@ import { Button, Tabs, Card } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import Header from '../../Components/Header/Header';
 import { useParams, Link } from 'react-router-dom';
-import { EventById } from '../../data';
+import { EventById,EventsInCategory } from '../../data';
 const { TabPane } = Tabs;
 interface ParamTypes {
   eId: string
@@ -13,9 +13,23 @@ export default function EventDetails() {
 
   let { eId } = useParams<ParamTypes>();
 
+  function headerimg(){
+    var k: string = "";
+    EventsInCategory.filter(val=>{
+        var id: string;
+        id = String(val.id);
+        console.log(id);
+        if(id == eId){
+            k = val.coverimg;
+        }
+    })
+    
+    return k;
+  }
+
   return (
     <>
-      <Header mainText={"Event " + eId} showBack={true} />
+      <Header mainText={"Event " + eId} showBack={true} dashimg={headerimg()}/>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <div style={{ display: "inline-block" }}>
           {EventById.isregopen && <Button

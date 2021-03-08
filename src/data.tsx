@@ -5,7 +5,7 @@ export const EventsInCategory = [
         date: '19 Mar 2021',
         time: '21:00',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-        coverimg: 'image url here',
+        coverimg: 'http://1.bp.blogspot.com/-iiLwOaJYnu4/Uzi1HI83xVI/AAAAAAAADeI/Tr4vcoiGGDU/s1600/low_res_blue_animal-magic_detail_rabbit_large.jpg',
         isregopen: true,
     },
     {
@@ -14,7 +14,7 @@ export const EventsInCategory = [
         date: '19 Mar 2021',
         time: '21:00',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-        coverimg: 'image url here',
+        coverimg: 'https://cdn.wallpapersafari.com/70/6/D20uZf.jpg',
         isregopen: true,
     },
     {
@@ -23,7 +23,7 @@ export const EventsInCategory = [
         date: '19 Mar 2021',
         time: '21:00',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-        coverimg: 'image url here',
+        coverimg: 'https://wallup.net/wp-content/uploads/2018/10/07/55607-cats-animals-macro-low-resolution-pets-748x468.jpg',  
         isregopen: true,
     },
 
@@ -60,22 +60,22 @@ export const EventCategories = [
     {
         id: "123",
         title: "Music",
-        bgImg: "https://images.unsplash.com/photo-1546593064-053d21199be1?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=668&q=80"
+        bgImg: "http://1.bp.blogspot.com/-iiLwOaJYnu4/Uzi1HI83xVI/AAAAAAAADeI/Tr4vcoiGGDU/s1600/low_res_blue_animal-magic_detail_rabbit_large.jpg"    //rabbit
     },
     {
         id: "113",
         title: "Dance",
-        bgImg: "https://images.unsplash.com/photo-1546593064-053d21199be1?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=668&q=80"
+        bgImg: "https://cdn.wallpapersafari.com/70/6/D20uZf.jpg"   //koala
     },
     {
         id: "103",
         title: "Miscillaneous",
-        bgImg: "https://images.unsplash.com/photo-1546593064-053d21199be1?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=668&q=80"
+        bgImg: "https://wallup.net/wp-content/uploads/2018/10/07/55607-cats-animals-macro-low-resolution-pets-748x468.jpg"  //cat
     },
     {
         id: "133",
         title: "Management",
-        bgImg: "https://images.unsplash.com/photo-1546593064-053d21199be1?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=668&q=80"
+        bgImg: "https://preview.redd.it/qlvn9bckttk61.jpg?width=960&crop=smart&auto=webp&s=6806211c7edf3b8cd250d90270bc95caa249dc08"  //bird
     }
 ]
 
@@ -87,7 +87,7 @@ export const UserProfile =
     phone: "7377383838",
     registeredEvents: [
         {
-            id: "73773",
+            id: 1659,
             isteamevent: true,
             status: "withheld",
             team: {
