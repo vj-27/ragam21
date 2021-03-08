@@ -3,13 +3,12 @@ import { Input,Switch } from 'antd';
 import EventCard from '../../Components/EventCard/EventCard';
 import Header from '../../Components/Header/Header';
 import {useParams} from 'react-router-dom';
-import {EventsInCategory} from '../../data';
+import {EventsInCategory, EventCategories} from '../../data';
 import userEvents from '../../data1.js';
 import {useState} from 'react';
 interface EventListProps{
     children: React.ReactNode[]
 };
-
 
 interface ParamTypes {
     cId: string
@@ -29,15 +28,26 @@ export default function EventListPage(){
     function RegEventsID(){
     for (i = 0; i < userEvents.length; i++) {
         RegEvents.push(userEvents[i].id);
-      console.log(userEvents[i].id)
       } 
     };
     RegEventsID();
+    function headerimg(){
+        var k: string = "";
+        EventCategories.filter(val=>{
+
+            if(val.id == cId){
+                k = val.bgImg;
+            }
+        })
+        
+        return k;
+    }
+    
 
     return(
         <>
         
-        <Header showBack={true} mainText={"InsideCategory "+ cId}/>
+        <Header showBack={true} mainText={"InsideCategory "+ cId} dashimg={headerimg()}/>
         <div>
             <div className='center-align' > 
                 <div style={{ borderRadius:'10px'}}>

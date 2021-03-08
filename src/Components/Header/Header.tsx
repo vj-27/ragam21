@@ -17,7 +17,8 @@ const eventDetails = {
 interface HeaderProps{
   backonClick?: ()=> void ,
   mainText: string,
-  showBack: boolean
+  showBack: boolean,
+  dashimg: string
 }
 // function navigate() {}
 function Header(props: HeaderProps) {
@@ -25,7 +26,7 @@ function Header(props: HeaderProps) {
   let history = useHistory();
   return (
     <div className="header_main">
-      <div className="header_dash">
+      <div className="header_dash" style={{backgroundImage: `url(${props.dashimg})`}}>
         <div className="header_buttons">
 
           <div className="header_backbtn">

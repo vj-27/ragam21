@@ -11,17 +11,27 @@ body {
   display: flex;
   width: 100%;
   height: 200px;
-  background-color: none;
+  
   padding: 0;
 }
 .header_dash {
   width: 100%;
   height: 150px;
-  background-color: #eeffff;
-  padding: 0;
-}
+  background-size: cover;
+  background-position: center;
+  padding: 0;}
+
+  .header_dash:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 150px;
+    background-color: black;
+    opacity: .4; 
+  }
+
 .header_title {
-  color: grey;
+  color: rgb(211, 98, 98);
   position: absolute;
   left: 50%;
   padding: 0;
@@ -41,7 +51,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  top: 75px;
+  top: -70px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,6 +72,8 @@ body {
   transform: scale(1.4);
 }
 .header_logo {
+  position: absolute;
+  top: 2%;
   height: 70px;
   width: 70px;
 }

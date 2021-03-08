@@ -8,6 +8,7 @@ export default function HomePage() {
         mainText="Home"
         backonClick={() => console.log("back clicked @ Home")}
         showBack = {false}
+        dashimg="https://wallpaperaccess.com/full/1261637.png"
       />
       <div>This is Home Page</div>
       <Link to="/events">Go tp Events</Link>
