@@ -18,8 +18,10 @@ import {
 import EventsPage from './Screens/EventsPage/EventsPage';
 import GoogleAuthCallback from './Screens/GoogleAuthCallback';
 import { OmitProps } from 'antd/lib/transfer/ListBody';
+import { backendURI } from './data';
 function App() {
   const [headerTitle, setHeaderTitle] = React.useState('Home');
+  const [categories, setCategories] = useState([]);
 
   const [user, setUser] = useState({
     isLoggedIn: false,
@@ -36,32 +38,38 @@ function App() {
       setUser(myRealObj);
     }
 
-
+    fetch(backendURI + "categories").then(response => {
+      if(response.ok)
+      return response.json();
+      else
+      throw Error("Error")
+    }).then(json => setCategories(json)).catch(error => setCategories([]) )
   }, [])
+  console.log(categories)
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route exact path="/">
-            <HomePage user={user} setUser={setUser}/>
+            <HomePage categories={categories} user={user} setUser={setUser} />
           </Route>
           <Route path="/auth/callback">
-            <GoogleAuthCallback user={user} setUser={setUser} />
+            <GoogleAuthCallback categories={categories} user={user} setUser={setUser} />
           </Route>
           <Route path="/events">
-            <EventsPage user={user} setUser={setUser} />
+            <EventsPage categories={categories} user={user} setUser={setUser} />
           </Route>
           <Route path="/profile">
-            <ProfilePage user={user} setUser={setUser} />
+            <ProfilePage categories={categories} user={user} setUser={setUser} />
           </Route>
           <Route path="/category/:cId">
-            <EventListPage user={user} setUser={setUser} />
+            <EventListPage categories={categories} user={user} setUser={setUser} />
           </Route>
           <Route path="/event/:eId">
-            <EventDetails user={user} setUser={setUser} />
+            <EventDetails categories={categories} user={user} setUser={setUser} />
           </Route>
           <Route path="/myreg/:eId">
-            <MyRegistationPage user={user} setUser={setUser} />
+            <MyRegistationPage categories={categories} user={user} setUser={setUser} />
           </Route>
         </Switch>
       </Router>
