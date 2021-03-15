@@ -5,6 +5,7 @@ import { Upload, Button, message, Form, Input } from "antd";
 import useFitText from "use-fit-text";
 import { EditOutlined, UploadOutlined, CloseOutlined, PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { useParams, Link } from 'react-router-dom';
+import {PropTypes} from '../../data';
 interface ParamTypes {
   eId: string
 }
@@ -27,7 +28,7 @@ const formItemLayoutWithOutLabel = {
 
 
 var j = 0;
-export default function MyRegistationPage() {
+export default function MyRegistationPage(props:PropTypes) {
   //   const [fileList, setFilelist] = useState<any[]>();
   //   const [uploading, setUploading] = useState(false);
   //   function handleUpload() {
@@ -78,7 +79,7 @@ export default function MyRegistationPage() {
 
   return (
     <div>
-      <Header mainText={"Event " + eId} showBack={true} dashimg="https://wallpaperaccess.com/full/1261637.png"/>
+      <Header mainText={"Event " + eId} showBack={true} dashimg="https://wallpaperaccess.com/full/1261637.png" user={props.user}/>
       <div className="myreg-status" ref={ref} style={{ fontSize }}>
         <p className="myreg-bold" >Registration Status: </p>
         <p>{UserEvents[i]["status"]} </p>

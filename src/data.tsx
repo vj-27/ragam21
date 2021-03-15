@@ -1,3 +1,17 @@
+import { Dispatch, SetStateAction } from 'react';
+export function onLogout(data: PropTypes) {
+    //call this when logging out / when token gets expired
+    localStorage.removeItem("user");
+    const myObj = {
+        isLoggedIn: false,
+        token: "",
+        email: "",
+        id: 0,
+        name: "",
+        phoneNumber: "",
+    }
+    data.setUser(myObj);
+}
 export const EventsInCategory = [
     {
         id: 1659,
@@ -23,11 +37,31 @@ export const EventsInCategory = [
         date: '19 Mar 2021',
         time: '21:00',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-        coverimg: 'https://wallup.net/wp-content/uploads/2018/10/07/55607-cats-animals-macro-low-resolution-pets-748x468.jpg',  
+        coverimg: 'https://wallup.net/wp-content/uploads/2018/10/07/55607-cats-animals-macro-low-resolution-pets-748x468.jpg',
         isregopen: true,
     },
 
 ];
+
+export interface PropTypes {
+    user: {
+        isLoggedIn: boolean;
+        token: string;
+        email: string;
+        id: number;
+        name: string;
+        phoneNumber: string;
+    }
+    setUser: Dispatch<SetStateAction<{
+        isLoggedIn: boolean;
+        token: string;
+        email: string;
+        id: number;
+        name: string;
+        phoneNumber: string;
+    }>>
+}
+export const backendURI = "https://ancient-cliffs-83503.herokuapp.com/";
 export const EventById = {
     id: 1659,
     name: 'Demo heloo 33',

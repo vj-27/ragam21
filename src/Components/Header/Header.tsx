@@ -4,7 +4,7 @@ import {  Button, Avatar } from "antd";
 import useFitText from "use-fit-text";
 import { UserOutlined } from "@ant-design/icons";
 import { useHistory,Link } from "react-router-dom";
-
+import {backendURI} from "../../data";
 // const avatar = {
 //   avtrimage: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
 // };
@@ -18,7 +18,15 @@ interface HeaderProps{
   backonClick?: ()=> void ,
   mainText: string,
   showBack: boolean,
-  dashimg: string
+  dashimg: string,
+  user?: {
+    isLoggedIn: boolean;
+    token: string;
+    email: string;
+    id: number;
+    name: string;
+    phoneNumber: string;
+}
 }
 // function navigate() {}
 function Header(props: HeaderProps) {
@@ -39,9 +47,20 @@ function Header(props: HeaderProps) {
           </div>
           <img className ="header_logo" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="logo"/>
           <div className="header_profile">
+            {props.user?.isLoggedIn?
             <Link to="/profile/">
-              <Avatar icon={<UserOutlined />} />
-            </Link>
+            <Avatar icon={<UserOutlined />} />
+          </Link>
+            :
+            <a href={backendURI+"connect/google"}>
+            <Button>
+              
+                Login
+            </Button>
+            </a>
+            
+            }
+            
           </div>
         </div>
         <div className="header_title" ref={ref} style={{ fontSize }}>

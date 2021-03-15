@@ -3,13 +3,13 @@ import { Button, Tabs, Card } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import Header from '../../Components/Header/Header';
 import { useParams, Link } from 'react-router-dom';
-import { EventById,EventsInCategory } from '../../data';
+import { EventById,EventsInCategory, PropTypes } from '../../data';
 const { TabPane } = Tabs;
 interface ParamTypes {
   eId: string
 }
 
-export default function EventDetails() {
+export default function EventDetails(props:PropTypes) {
 
   let { eId } = useParams<ParamTypes>();
 
@@ -29,7 +29,7 @@ export default function EventDetails() {
 
   return (
     <>
-      <Header mainText={"Event " + eId} showBack={true} dashimg={headerimg()}/>
+      <Header mainText={"Event " + eId} showBack={true} dashimg={headerimg()} user={props.user}/>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <div style={{ display: "inline-block" }}>
           {EventById.isregopen && <Button

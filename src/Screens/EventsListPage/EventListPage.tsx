@@ -3,7 +3,7 @@ import { Input,Switch } from 'antd';
 import EventCard from '../../Components/EventCard/EventCard';
 import Header from '../../Components/Header/Header';
 import {useParams} from 'react-router-dom';
-import {EventsInCategory, EventCategories} from '../../data';
+import {EventsInCategory, EventCategories, PropTypes} from '../../data';
 import userEvents from '../../data1.js';
 import {useState} from 'react';
 interface EventListProps{
@@ -13,7 +13,7 @@ interface EventListProps{
 interface ParamTypes {
     cId: string
   }
-export default function EventListPage(){
+export default function EventListPage(props:PropTypes){
 
     let { cId } = useParams<ParamTypes>();
     
@@ -47,7 +47,7 @@ export default function EventListPage(){
     return(
         <>
         
-        <Header showBack={true} mainText={"InsideCategory "+ cId} dashimg={headerimg()}/>
+        <Header showBack={true} mainText={"InsideCategory "+ cId} dashimg={headerimg()} user={props.user}/>
         <div>
             <div className='center-align' > 
                 <div style={{ borderRadius:'10px'}}>
