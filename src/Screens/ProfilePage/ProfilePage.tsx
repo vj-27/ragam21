@@ -9,7 +9,31 @@ export default function ProfilePage(props: PropTypes) {
     const { fontSize, ref } = useFitText({ maxFontSize: 200, minFontSize: 80 })
     const eventList = [];
     const history = useHistory();
-
+    let event={"id": 4,
+                "name": "event1",
+                "submissionDate": "2021-03-19T06:30:00.000Z",
+                "description": "markdown-description",
+                "isTeamEvent": true,
+                "Rules": "markdown-rules",
+                "category": 2,
+                "result": "markdown-result",
+                "regStartDate": "2021-03-13T06:30:00.000Z",
+                "regEndDate": "2021-03-19T06:30:00.000Z",
+                "minTeamSize": 1,
+                "maxTeamSize": 5,
+                "slug": "event1",
+                "isSubmissionEvent": true,
+                "published_at": "2021-03-12T17:53:15.797Z",
+                "created_at": "2021-03-12T17:52:25.661Z",
+                "updated_at": "2021-03-14T09:48:10.226Z",
+                "contacts": [
+                    {
+                        "id": 2,
+                        "name": "contact1",
+                        "phoneNumber": "contact-phone-num"
+                    }
+                ],
+                "coverImage": null}
     return (<div>
         <div>
             <HeaderProfile showBack={true} />
@@ -25,7 +49,7 @@ export default function ProfilePage(props: PropTypes) {
                 Logout
             </Button>
             <div ref={ref} style={{ fontSize }} ><u>registered Events</u></div>
-            <EventCard {...EventById} />
+            <EventCard {...event} />
         </div>
     </div>)
 }

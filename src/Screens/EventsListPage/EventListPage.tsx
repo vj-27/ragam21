@@ -24,6 +24,9 @@ export default function EventListPage(props: PropTypes) {
 
     const [isCatFound, setisCatFound] = useState(false);
     const [isLoading, setisLoading] = useState(true);
+    const [count, setisCount] = useState(0);
+
+    
 
     const [SearchTerm, setSearchTerm] = useState('');
     const [Toggle, setToggle] = useState(false);
@@ -50,20 +53,24 @@ export default function EventListPage(props: PropTypes) {
 
         return k;
     }
-
+   
 
     useEffect(() => {
-            for (i of props.categories) {
-                if (cId.localeCompare(i.slug) == 0) {
+            for (i=0;i<props.categories.length;i++) {
+
+                if (cId.localeCompare(props.categories[i].slug) == 0) {
                     setisCatFound(true);
                     setisLoading(false);
+                    setisCount(i)
                     console.log(isCatFound)
                     break;
                 }
                 if(isLoading)
                     setisLoading(false);
+                
             }
     })
+    console.log(count)
     if (isLoading == false) {
         if (isCatFound) {
             return (
@@ -81,7 +88,10 @@ export default function EventListPage(props: PropTypes) {
                                 />
                             </div>
                         </div>
-                        {EventsInCategory.filter(val => {
+                        {
+                       
+                        
+                        props.categories[count].events.filter(val => {
                             if (SearchTerm == '' && !Toggle) {
                                 return val
                             }
