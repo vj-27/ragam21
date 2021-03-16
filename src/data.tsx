@@ -95,7 +95,7 @@ export interface PropTypes {
         phoneNumber: string;
     }>>
 }
-export const backendURI = "https://df1fb65af511.ngrok.io/";
+export const backendURI = "https://70d9c58a2a89.ngrok.io/";
 export const EventById = {
     id: 1659,
     name: 'Demo heloo 33',
