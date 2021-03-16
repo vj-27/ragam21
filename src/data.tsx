@@ -44,6 +44,40 @@ export const EventsInCategory = [
 ];
 
 export interface PropTypes {
+    categories:{
+        id: number,
+        name: string,
+        slug: string,
+        published_at: string,
+        created_at:string ,
+        updated_at:string ,
+        bgImage: null,
+    events:{
+        id: number;
+        name: string
+        submissionDate: string;
+        description: string;
+        isTeamEvent: boolean;
+        Rules: string;
+        category: number;
+        result: string;
+        regStartDate: string;
+        regEndDate: string;
+        minTeamSize: number;
+        slug: string,
+        isSubmissionEvent: boolean,
+        published_at: string,
+        created_at: string,
+        updated_at: string,
+        contacts:{
+            id: number,
+            name: string,
+            phoneNumber:string 
+        }[]
+        coverImage: null;
+    }[],
+
+}[]
     user: {
         isLoggedIn: boolean;
         token: string;
@@ -61,7 +95,7 @@ export interface PropTypes {
         phoneNumber: string;
     }>>
 }
-export const backendURI = "https://ancient-cliffs-83503.herokuapp.com/";
+export const backendURI = "https://df1fb65af511.ngrok.io/";
 export const EventById = {
     id: 1659,
     name: 'Demo heloo 33',

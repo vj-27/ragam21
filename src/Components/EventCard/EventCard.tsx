@@ -13,13 +13,28 @@ const reg = {
   isRegistered: true
 };
 interface EventProps{
-  id: number;
-  name: string;
-  date: string;
-  time: string;
-  description: string;
-  coverimg: string;
-  isregopen: boolean;
+        id: number;
+        name: string
+        submissionDate: string;
+        description: string;
+        isTeamEvent: boolean;
+        Rules: string;
+        category: number;
+        result: string;
+        regStartDate: string;
+        regEndDate: string;
+        minTeamSize: number;
+        slug: string,
+        isSubmissionEvent: boolean,
+        published_at: string,
+        created_at: string,
+        updated_at: string,
+        contacts:{
+            id: number,
+            name: string,
+            phoneNumber:string 
+        }[]
+        coverImage: null;
 }
 function EventCard(props:EventProps) {
 
@@ -35,7 +50,7 @@ function EventCard(props:EventProps) {
   RegEventsID();
   return (
     <div className="eventCard_mainWrapper">
-      <Link to={"/event/"+props.id}>
+      <Link to={"/event/"+props.slug}>
         <Card
           className="evcard"
           title={props.name}
@@ -50,7 +65,7 @@ function EventCard(props:EventProps) {
           }
           style={{
             
-            backgroundImage: `url("${props.coverimg}")`,
+            backgroundImage: `url("${props.coverImage}")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             borderRadius: "15px"
@@ -67,10 +82,10 @@ function EventCard(props:EventProps) {
         >
           <h3>{props.description}</h3>
           <h2>
-            <b> Date: {props.date}</b>
+            <b> Date: {props.regStartDate}</b>
           </h2>
           <h2>
-            <b> Time: {props.time}</b>
+            <b> Time: {props.regEndDate}</b>
           </h2>
         </Card>
         </Link>
