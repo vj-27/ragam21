@@ -1,11 +1,9 @@
+import { message } from 'antd';
 import React, { useState } from 'react';
-import { useParams, Link, useLocation, useHistory } from 'react-router-dom';
+import {  useLocation, useHistory } from 'react-router-dom';
 import { backendURI, PropTypes } from '../data';
-import MyRegistationPage from './MyRegistrationPage/MyRegistrationPage';
 
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+
 
 const GoogleAuthCallback = (props: PropTypes) => {
   const history = useHistory();
@@ -43,6 +41,7 @@ const GoogleAuthCallback = (props: PropTypes) => {
           myObj.name = data.user.name;
           myObj.phoneNumber = data.user.phoneNumber;
           //add eventDetails here..
+          message.success("Logged in Successfully..")
           props.setUser(myObj);
           localStorage.setItem("user", JSON.stringify(myObj));
           const navTo = localStorage.getItem("navTo");

@@ -1,94 +1,102 @@
 import React from "react";
-import { Card } from "antd";
-import {Link} from 'react-router-dom';
-import userEvents from '../../data1.js';
-const eventDetails = {
-  eventName: "EventName",
-  eventDescription:
-    "Event description Event description Event description Event description Event description Event description Event description ",
-  eventTime: "5.30pm to 6.50pm"
-};
-
-const reg = {
-  isRegistered: true
-};
-interface EventProps{
-        id: number;
-        name: string
-        submissionDate: string;
-        description: string;
-        isTeamEvent: boolean;
-        Rules: string;
-        category: number;
-        result: string;
-        regStartDate: string;
-        regEndDate: string;
-        minTeamSize: number;
-        slug: string,
-        isSubmissionEvent: boolean,
-        published_at: string,
-        created_at: string,
-        updated_at: string,
-        contacts:{
-            id: number,
-            name: string,
-            phoneNumber:string 
-        }[]
-        coverImage: null;
+import { Row, Col, Card, Typography, Divider } from "antd";
+import { Link } from "react-router-dom";
+import { EventDetailsType, backendURI } from "../../data";
+import dayjs from "dayjs";
+import ReactMarkdown from "react-markdown";
+interface EventCardProps extends EventDetailsType {
+  isReg: boolean;
 }
-function EventCard(props:EventProps) {
+// extra={
+//   props.isReg? (
+//     <h3>
+//       <i>Registered</i>
+//     </h3>
+//   ) : (
+//     ""
+//   )
+// }
+//
 
-  let RegEvents: number[] = [];
-  var i;
-  function RegEventsID(){
-  for (i = 0; i < userEvents.length; i++) {
-      RegEvents.push(userEvents[i].id);
-    console.log(userEvents[i].id)
-    } 
-  };
-
-  RegEventsID();
+function EventCard(props: EventCardProps) {
+  console.log(props.coverImage?.url);
   return (
     <div className="eventCard_mainWrapper">
-      <Link to={"/event/"+props.slug}>
+      <Link to={"/event/" + props.slug} id={"EventCard_"+props.slug}>
         <Card
           className="evcard"
-          title={props.name}
-          extra={
-            RegEvents.includes(props.id)? (
-              <h3>
-                <i>Registered</i>
-              </h3>
-            ) : (
-              ""
-            )
-          }
           style={{
-            
-            backgroundImage: `url("${props.coverImage}")`,
+            padding: 0,
+            height:"194px",
+            backgroundImage: `url("${
+              backendURI.slice(0, -1) + props.coverImage?.url
+            }")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
-            borderRadius: "15px"
-            
+            borderRadius: "15px",
           }}
-          bodyStyle={{ backgroundColor: "rgba(255,255,255,0.7)",
-          borderRadius: "0 0 15px 15px" }}
-          headStyle={{
-            backgroundColor: "rgba(255,255,255,0.7)",
-            fontSize: "200%",
-            borderRadius: "15px 15px 0 0"
+          bodyStyle={{
+            padding: "0px",
+            backgroundColor: "rgba(0,0,0,0.60)",
+            borderRadius: "0 0 15px 15px",
+            color: "#ffff",
           }}
           hoverable={true}
         >
-          <h3>{props.description}</h3>
-          <h2>
-            <b> Date: {props.regStartDate}</b>
-          </h2>
-          <h2>
-            <b> Time: {props.regEndDate}</b>
-          </h2>
+          <Typography.Title
+            level={3}
+            style={{
+              fontWeight: "bold",
+              margin: "15px",
+              fontFamily: "Raleway",
+            }}
+            ellipsis={{
+              rows: 1,
+              expandable: false,
+            }}
+          >
+            {props.name}
+          </Typography.Title>
+
+          <Typography.Paragraph
+            style={{
+              margin: "15px",
+              height: "66px"
+            }}
+            ellipsis={{
+              rows: 3,
+              expandable: false,
+            }}
+          >
+            {props.description}
+          </Typography.Paragraph>
+          {/* <div style={{backgroundColor:"#fffff",height:"5px",zIndex:1000}}/> */}
+          <Divider style={{ marginTop: "10px", marginBottom: "10px" }} />
+
+          {props.isReg ? (
+            <Row style={{ margin: "15px", marginTop: 0 }}>
+              {" "}
+              <Col span={8}>Registered </Col>
+              <Col span={16} style={{ textAlign: "right" }}>
+                {dayjs(props.submissionDate).diff(dayjs()) < 0
+                  ? "Submission has Ended !!"
+                  : "Submission Deadline " +
+                    dayjs(props.submissionDate).format("DD MMMM")}{" "}
+              </Col>
+            </Row>
+          ) : (
+            <h4 style={{ margin: "15px", marginTop: 0 }}>
+              {props.isRegOpen
+                ? "Registration Ends On : " +
+                  dayjs(props.regEndDate).format("DD MMMM")
+                : dayjs(props.regStartDate).diff(dayjs()) > 0
+                ? "Registration Starts On : " +
+                  dayjs(props.regStartDate).format("DD MMMM")
+                : "Registration has Ended"}
+            </h4>
+          )}
         </Card>
-        </Link>
+      </Link>
     </div>
   );
 }

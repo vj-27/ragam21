@@ -1,68 +1,38 @@
 import React from "react";
 import { Card } from "antd";
 import {Link} from 'react-router-dom';
+import {backendURI, Cats} from '../../data';
 
-interface MyProp{
-        id: number,
-        name: string,
-        slug: string,
-        published_at: string,
-        created_at:string ,
-        updated_at:string ,
-        bgImage: null,
-    events:{
-        id: number;
-        name: string
-        submissionDate: string;
-        description: string;
-        isTeamEvent: boolean;
-        Rules: string;
-        category: number;
-        result: string;
-        regStartDate: string;
-        regEndDate: string;
-        minTeamSize: number;
-        slug: string,
-        isSubmissionEvent: boolean,
-        published_at: string,
-        created_at: string,
-        updated_at: string,
-        contacts:{
-            id: number,
-            name: string,
-            phoneNumber:string 
-        }[]
-        coverImage: null;
-    }[],
-
-}
-
-function EventCategoryCard(props:MyProp) {
+function EventCategoryCard(props:Cats) {
   return (
-    <Link to={"category/"+props.slug}>
+    <Link to={"category/"+props.slug} id={"EventCategoryCard_"+props.slug}>
     <div className="catCard_mainWrapper">
-      <a>
+      
         <Card
           className="catcard"
           style={{
-            backgroundImage: `url("${props.bgImage}")`,
+            backgroundImage: `url("${backendURI.slice(0, -1) + props.bgImage?.url}")`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
-            backgroundPosition: "center"
+            backgroundPosition: "center",
+            borderRadius: "15px",
+            height:"150px"
           }}
           bodyStyle={{
-            backgroundColor: "rgba(255,255,255,0.7)",
-            height: "100%"
+            backgroundColor: "rgba(0,0,0,0.55)",
+            height: "100%",
+            borderRadius: "15px 15px 15px 15px" 
           }}
+          
           hoverable={true}
         >
           <div className="categorytext">
-            <h1>
+            <h1 style={{color:"#ffffff",margin:0}}>
               <b>{props.name}</b>
             </h1>
           </div>
         </Card>
-      </a>
+      
     </div>
     </Link>
   );

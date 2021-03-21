@@ -5,6 +5,7 @@ import useFitText from "use-fit-text";
 import { UserOutlined } from "@ant-design/icons";
 import { useHistory,Link } from "react-router-dom";
 import {backendURI} from "../../data";
+import logo from "../../assets/Final logo.svg";
 // const avatar = {
 //   avtrimage: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
 // };
@@ -18,7 +19,7 @@ interface HeaderProps{
   backonClick?: ()=> void ,
   mainText: string,
   showBack: boolean,
-  dashimg: string,
+  dashimg: string|undefined,
   user?: {
     isLoggedIn: boolean;
     token: string;
@@ -30,7 +31,7 @@ interface HeaderProps{
 }
 // function navigate() {}
 function Header(props: HeaderProps) {
-  const { fontSize, ref } = useFitText({ maxFontSize: 500, minFontSize: 100 });
+  const { fontSize, ref } = useFitText({ maxFontSize: 500, minFontSize: 150 });
   let history = useHistory();
   return (
     <div className="header_main">
@@ -40,31 +41,34 @@ function Header(props: HeaderProps) {
           <div className="header_backbtn">
             {props.showBack &&
             <Button
+              id="Header_Back"
               shape="circle"
               icon={<ArrowLeftOutlined />}
               onClick={() => props.backonClick? props.backonClick(): history.goBack()}
             />}
           </div>
-          <img className ="header_logo" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" alt="logo"/>
+          <Link to="/" id="Header_Logo">
+          <img className ="header_logo" src={logo} alt="logo"/>
+          </Link>
           <div className="header_profile">
             {props.user?.isLoggedIn?
-            <Link to="/profile/">
+            <Link to="/profile/" id="Header_Profile">
             <Avatar icon={<UserOutlined />} />
           </Link>
             :
-            <a href={backendURI+"connect/google"}>
-            <Button>
+            <Link to="/login">
+            <Button type="primary">
               
-                Login
+                <h5>Login</h5>
             </Button>
-            </a>
+            </Link>
             
             }
             
           </div>
         </div>
-        <div className="header_title" ref={ref} style={{ fontSize }}>
-          {props.mainText}
+        <div className="header_title">
+          <h3><b>{props.mainText}</b></h3>
         </div>
       </div>
     </div>

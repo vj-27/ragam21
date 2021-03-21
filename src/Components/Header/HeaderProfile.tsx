@@ -24,6 +24,7 @@ function HeaderProfile(props: HeaderProps) {
           <div className="header_backbtn">
             {props.showBack &&
             <Button
+              id="Header_profile_back"
               shape="circle"
               icon={<ArrowLeftOutlined />}
               onClick={() => props.backonClick? props.backonClick(): history.goBack()}

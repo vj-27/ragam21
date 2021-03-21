@@ -1,0 +1,236 @@
+@import "~antd/dist/antd.dark.less";
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+* {
+  font-family: Raleway;
+}
+.App {
+  display: flex;
+  flex-direction: column;
+}
+.header_main {
+  display: flex;
+  width: 100%;
+  height: 200px;
+
+  padding: 0;
+}
+.header_dash {
+  width: 100%;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  padding: 0;
+}
+
+.header_dash:before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 150px;
+  background-color: black;
+  opacity: 0.4;
+}
+
+.header_title {
+  font-size: 40px;
+  position: absolute;
+  width:100%;
+  text-align: center;
+  display: block;
+  line-height: 40px;
+  left: 50%;
+  padding: 0;
+  transform: translate(-50%, +55%);
+  z-index: 1000;
+  opacity: 1;
+  color: "#ffff";
+  /* background-color: rgb(206, 119, 119); */
+  top: 95px;
+  /* overflow: hidden; */
+}
+@media only screen and (max-width: 610px) {
+  .header_title {
+    font-size: 30px;
+  }
+}
+@media only screen and (max-width: 390px) {
+  .header_title {
+    font-size: 30px;
+    transform: translate(-50%, 32px);
+
+  }
+  .header_main {
+    margin-bottom: 30px;
+  }
+}
+.ant-tabs-nav-list:nth-child(4) {
+  margin: "0px 0px 0px 0px";
+}
+
+.header_avatar {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: -70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* background-color: rgb(206, 119, 119); */
+  /* overflow: hidden; */
+}
+
+.header_buttons {
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+}
+.header_backbtn {
+  position: absolute;
+  top: 45px;
+  left: 5%;
+  transform: scale(1.4);
+}
+.header_logo {
+  position: absolute;
+  transform: translate(-50%,-110%);
+  height: 170px;
+  width: 170px;
+}
+.header_profile {
+  position: absolute;
+  right: 5%;
+  top: 45px;
+  transform: scale(1.4);
+}
+
+.eventCard_mainWrapper {
+  /* padding: 100px; */
+  width: 90%;
+  /* height: 90vh; */
+  position: relative;
+  margin: auto;
+  margin-top: 25px;
+}
+
+.evcard {
+  height: 100%;
+  width: 100%;
+  /* border-radius: 15px; */
+}
+#ellipsis-typography {
+  color: "#ffffff";
+}
+.ant-card-body {
+  height: 100%;
+}
+.catCard_mainWrapper {
+  /* padding: 100px; */
+  width: 90%;
+  position: relative;
+  margin: auto;
+  margin-top: 25px;
+}
+.categorytext {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.catcard {
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+.center-text {
+  text-align: center;
+}
+.center-align {
+  margin: auto;
+}
+
+/*myreg*/
+.myreg-status {
+  font-size: 20px;
+  background-color: cadetblue;
+  margin: 0px 2px;
+  border-radius: 5px;
+  padding-left: 2px;
+  padding-bottom: 0.001px;
+  display: flex;
+  justify-content: center;
+}
+.myreg-status .myreg-bold {
+  font-weight: 600;
+  margin: 2px;
+}
+.myreg-status p {
+  display: inline;
+  font-weight: 400;
+  margin: 2px;
+  font-size: 0.3em;
+}
+.announcement {
+  background-color: cadetblue;
+  margin: 5px 2px;
+  border-radius: 5px;
+  padding: 2px 4px;
+}
+.announcement h6,
+.team h6,
+.submission h6 {
+  font-size: 0.4em;
+  margin: 0px;
+  margin-left: 10px;
+}
+.announcement p {
+  font-size: 0.2em;
+  margin: 6px 15px;
+}
+.team {
+  padding-bottom: 5px;
+  text-align: center;
+  display: flexbox;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-color: cadetblue;
+  margin: 5px 2px;
+  border-radius: 5px;
+}
+.team h5 {
+  margin-bottom: 4px;
+  font-weight: 600;
+  font-size: 0.3em;
+  margin-top: 0px;
+}
+.teammembers {
+  margin-bottom: 0.2em;
+  margin-top: 0px;
+  font-size: 11px;
+}
+.team .button,
+.team .button:enabled {
+  font-size: small;
+  color: rgb(255, 255, 255);
+  background-color: cadetblue;
+  border: none;
+}
+.submission {
+  padding-bottom: 5px;
+  text-align: center;
+  display: flexbox;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  background-color: cadetblue;
+  margin: 5px 2px;
+  border-radius: 5px;
+}
