@@ -135,8 +135,8 @@ export default function EditProfile(props: EditProps) {
               className="center-align"
               onClick={() => {
                 if (!name) message.error("Enter a valid Name",5);
-                else if (!college) message.error("Enter a valid name",5);
-                else if (!phoneNumber.match(re))
+                else if (!college) message.error("Enter a valid College Name",5);
+                else if (!phoneNumber || !phoneNumber.match(re))
                   message.error("Enter a Valid 10 digit phone number",5);
                 else {
                   fetch(backendURI + "users/" + props.userDetails.id, {

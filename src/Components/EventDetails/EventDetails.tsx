@@ -33,6 +33,7 @@ function showRegButton(
 }
 
 function NewlineText(text: string) {
+  if(!text) return[];
   const newText = text
     .split("\n")
     .map((str) => <Typography.Paragraph>{str}</Typography.Paragraph>);
