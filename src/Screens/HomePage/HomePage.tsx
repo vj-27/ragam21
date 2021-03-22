@@ -12,7 +12,17 @@ import topImg from "../../assets/img/top.jpeg";
 import bottomImg from "../../assets/img/bottom.jpeg";
 import frontImg from "../../assets/img/front.jpeg";
 import backImg from "../../assets/img/back.jpeg";
+import l1 from "../../assets/img/l1.jpeg";
+import l2 from "../../assets/img/l2.jpeg";
+import l3 from "../../assets/img/l3.jpeg";
+import r1 from "../../assets/img/r1.jpeg";
+import r2 from "../../assets/img/r2.jpeg";
+import r3 from "../../assets/img/r3.jpeg";
 export default function HomePage(props: PropTypes) {
+  const leftArr = [l1,l2,l3];
+  const rightArr = [r1,r2,r3];
+  const ln = Math.floor(Math.random() * 3);
+  const rn = Math.floor(Math.random() * 3);  
   const mount = useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     var scene = new THREE.Scene();
@@ -55,11 +65,11 @@ export default function HomePage(props: PropTypes) {
     const cubegeometry = new THREE.BoxGeometry(80, 80, 80); //create shape
     let cubeMaterials = [
       new THREE.MeshBasicMaterial({
-        map: new THREE.TextureLoader().load(rightImg),
+        map: new THREE.TextureLoader().load(rightArr[rn]),
         side: THREE.BackSide,
       }), //right side
       new THREE.MeshBasicMaterial({
-        map: new THREE.TextureLoader().load(leftImg),
+        map: new THREE.TextureLoader().load(leftArr[ln]),
         side: THREE.BackSide,
       }), //left side
       new THREE.MeshBasicMaterial({
@@ -103,7 +113,7 @@ export default function HomePage(props: PropTypes) {
       mouse.x = event.clientX - windowHalf.x;
       mouse.y = event.clientY - windowHalf.x;
     }
-    var stars:THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial>[] = [];
+    var stars: THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial>[] = [];
     function addSphere() {
       // The loop will move from z position of -1000 to z position 1000, adding a random particle at each position.
       for (var z = -1000; z < 1000; z += 2) {
@@ -129,28 +139,22 @@ export default function HomePage(props: PropTypes) {
         stars.push(sphere);
       }
     }
-    function animateStars() { 
-				
+    function animateStars() {
       // loop through each star
-      for(var i=0; i<stars.length; i++) {
-        
-          
-        // and move it forward dependent on the mouseY position. 
-        stars[i].position.z +=  i/10;
-          
+      for (var i = 0; i < stars.length; i++) {
+        // and move it forward dependent on the mouseY position.
+        stars[i].position.z += i / 10;
+
         // if the particle is too close move it to the back
-        if(stars[i].position.z>1000) stars[i].position.z-=2000; 
-        
+        if (stars[i].position.z > 1000) stars[i].position.z -= 2000;
       }
-    
     }
 
     let controls: any;
     let funct = () => {
       if (flag) {
         controls = new DeviceOrientationControls(camera);
-        controls.screenOrientation = -1; 
-      
+        controls.alphaOffset  = -1.5708;
       } else {
         document.addEventListener("mousemove", onMouseMove, false);
         console.log("reached here");
@@ -162,8 +166,10 @@ export default function HomePage(props: PropTypes) {
 
     //game logic
     var update1 = () => {
-      if (flag) {controls.update();}
-      else {
+      if (flag && controls) {
+        controls.update();
+        
+      } else {
         target.x = (1 - mouse.x) * 0.002;
         target.y = (1 - mouse.y) * 0.002;
         camera.rotation.x += 0.05 * (target.y - camera.rotation.x);
@@ -180,7 +186,6 @@ export default function HomePage(props: PropTypes) {
       update1();
       render();
     };
-    addSphere();
     GameLoop();
   }, []);
   return (
