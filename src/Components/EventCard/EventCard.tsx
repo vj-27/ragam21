@@ -22,12 +22,12 @@ function EventCard(props: EventCardProps) {
   console.log(props.coverImage?.url);
   return (
     <div className="eventCard_mainWrapper">
-      <Link to={"/event/" + props.slug} id={"EventCard_"+props.slug}>
+      <Link to={"/event/" + props.slug} id={"EventCard_" + props.slug}>
         <Card
           className="evcard"
           style={{
             padding: 0,
-            height:"194px",
+            height: "194px",
             backgroundImage: `url("${
               backendURI.slice(0, -1) + props.coverImage?.url
             }")`,
@@ -61,7 +61,7 @@ function EventCard(props: EventCardProps) {
           <Typography.Paragraph
             style={{
               margin: "15px",
-              height: "66px"
+              height: "66px",
             }}
             ellipsis={{
               rows: 3,
@@ -78,10 +78,13 @@ function EventCard(props: EventCardProps) {
               {" "}
               <Col span={8}>Registered </Col>
               <Col span={16} style={{ textAlign: "right" }}>
-                {dayjs(props.submissionDate).diff(dayjs()) < 0
+                {dayjs(props.submissionEndDate).diff(dayjs()) < 0
                   ? "Submission has Ended !!"
+                  : dayjs(props.submissionStartDate).diff(dayjs()) > 0
+                  ? "Submission starts on " +
+                    dayjs(props.submissionStartDate).format("DD MMMM")
                   : "Submission Deadline " +
-                    dayjs(props.submissionDate).format("DD MMMM")}{" "}
+                    dayjs(props.submissionEndDate).format("DD MMMM")}{" "}
               </Col>
             </Row>
           ) : (

@@ -77,6 +77,7 @@ export default function MyRegistationPage(props: MyRegProps) {
   const [visibleModal, setVisibleModal] = useState(false);
   const [removePromise, setRemovePromise] = useState<any>();
   const [fileX, setfileX] = useState<UploadFile>();
+  const [filelistX,setfilelistX] = useState<UploadFile[]>([]);
   function handleRemove(file: UploadFile) {
     setVisibleModal(true);
     setfileX(file);
@@ -161,13 +162,15 @@ export default function MyRegistationPage(props: MyRegProps) {
   // Modal
   const handleOkModalRemove = useCallback(() => {
     if (!userEvent || !fileX || !eventDetails) return; //shoud=ld never happer!!
-    if (dayjs(eventDetails.submissionDate).diff(dayjs()) < 0) {
+    if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) < -15*60*1000) {
       message.error("Submission time has ended.");
       removePromise.resolve(false);
       setVisibleModal(false);
       return;
+    }else if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) > -15*60*100 && dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0){
+      message.warning("Submission marked as Late!!",6);
     }
-    let mySubs = [];
+    let mySubs:RegEventDetail["submissions"] = [];
 
     for (let i in userEvent.submissions) {
       if (userEvent.submissions[i].id != parseInt(fileX.uid, 10)) {
@@ -197,7 +200,9 @@ export default function MyRegistationPage(props: MyRegProps) {
             setVisibleModal(false);
           } else {
             message.success("file " + fileX.name + " removed successfully.");
-
+            const myUserEvent ={...userEvent,submissions:mySubs};
+            setUserEvent(myUserEvent);
+            setfilelistX(getDefaultfileList(mySubs));
             setVisibleModal(false);
             if (removePromise && removePromise.resolve) {
               removePromise.resolve(true);
@@ -221,7 +226,7 @@ export default function MyRegistationPage(props: MyRegProps) {
   const [fileList, setFileList] = useState<any[]>([]);
   function handleChange(info: any) {
     if (!eventDetails) return;
-    if (dayjs(eventDetails.submissionDate).diff(dayjs()) < 0) {
+    if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0) {
       return;
     }
     if (info.file.status !== "uploading") {
@@ -236,10 +241,12 @@ export default function MyRegistationPage(props: MyRegProps) {
   const uploadImage = async (options: any) => {
     if (!userEvent || !eventDetails) return;
     const { onSuccess, onError, file, onProgress } = options;
-    if (dayjs(eventDetails.submissionDate).diff(dayjs()) < 0) {
+    if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) < -15*60*100) {
       message.error("Submission time has ended.");
       onError("Submission time has Ended");
       return;
+    }else if(dayjs(eventDetails.submissionEndDate).diff(dayjs()) > -15*60*100 && dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0){
+      message.warning("Submission marked as Late!!",6)
     }
 
     const fmData = new FormData();
@@ -255,12 +262,19 @@ export default function MyRegistationPage(props: MyRegProps) {
     };
     fmData.append("refId", userEvent.id.toString());
     fmData.append("files", file);
+    const myFileList = [...filelistX];
+    myFileList.push({uid:file.uid,size:file.size,percent:0,status:"uploading",name:file.name,type:file.type})
+    setfilelistX(myFileList)
     console.log(file);
     try {
       const res = await axios.post(backendURI + "upload", fmData, config);
 
       onSuccess("Ok");
       console.log("server res: ", res);
+      const myUserEvent ={...userEvent};
+      myUserEvent.submissions.push(res.data[0]);
+      setUserEvent(myUserEvent);
+      setfilelistX(getDefaultfileList(myUserEvent.submissions));
     } catch (err) {
       console.log("Eroor: ", err);
       const error = new Error("Some error");
@@ -282,6 +296,7 @@ export default function MyRegistationPage(props: MyRegProps) {
           //verify the result
           setLoading(false);
           setUserEvent(result);
+          setfilelistX(getDefaultfileList(result.submissions));
           console.log(result);
         },
         (error) => {
@@ -426,17 +441,22 @@ export default function MyRegistationPage(props: MyRegProps) {
                     marginTop: "25px",
                   }}
                 >
-                  {eventDetails &&
-                  dayjs(eventDetails.submissionDate).diff(dayjs()) < 0 ? (
+                  {eventDetails && dayjs(eventDetails.submissionStartDate).diff(dayjs()) > 0 ?
+                  <div>
+                  {"Submission Starts at " +
+                    dayjs(eventDetails.submissionStartDate).format("DD MMMM hh:mm a")}
+                </div>
+                  :
+                  dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0 ? (
                     <div>Submission has Ended!</div>
                   ) : (
                     <div>
-                      {"Submission Ends in " +
-                        dayjs(eventDetails?.submissionDate).to(dayjs(), true)}
+                      {"Submission Ends at " +
+                        dayjs(eventDetails.submissionEndDate).format("DD MMMM hh:mm a")}
                     </div>
                   )}
 
-                  {eventDetails?.isSubmissionEvent && (
+                  {eventDetails?.isSubmissionEvent && dayjs(eventDetails.submissionStartDate).diff(dayjs())<0 && (
                     <div>
                       <Modal
                         title="Delete file"
@@ -457,8 +477,16 @@ export default function MyRegistationPage(props: MyRegProps) {
                         defaultFileList={getDefaultfileList(
                           userEvent.submissions
                         )}
+                        fileList={filelistX}
                         onRemove={(file: UploadFile) => handleRemove(file)}
                         multiple={true}
+                        beforeUpload={(file,filelst)=>{
+                          let sz = file.size;
+                          sz = sz/1000000;
+                          if(sz<= eventDetails.maxFileSize)
+                          return true
+                          else{message.error("File size exceeds the limit of "+eventDetails.maxFileSize+"MB,"); return false}
+                        }}
                       >
                         <p className="ant-upload-drag-icon">
                           <InboxOutlined />

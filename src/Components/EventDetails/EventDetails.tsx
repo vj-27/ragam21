@@ -161,6 +161,7 @@ export default function EventDetails(props: EventDetailsProps) {
                   </Button>
                 )
               ) : (
+                props.categories[catCount].events[eventCount].isRegOpen &&
                 <a
                   href={backendURI + "connect/google"}
                   onClick={() => {

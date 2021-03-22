@@ -165,8 +165,10 @@ export interface Cats {
 export interface EventDetailsType {
   id: number;
   name: string;
-  submissionDate: string;
+  submissionEndDate: string;
+  submissionStartDate: string;
   description: string;
+  maxFileSize: number,
   isTeamEvent: boolean;
   rules: string;
   isRegOpen: boolean;
