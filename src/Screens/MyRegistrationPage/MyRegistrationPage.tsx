@@ -390,7 +390,7 @@ export default function MyRegistationPage(props: MyRegProps) {
               }}
             >
               <h3>
-                Registration Status : <b>{getString(userEvent.status)}</b>{" "}
+                {userEvent.status=="participating" || userEvent.status=="knocked_out"?  "Status: ": "Result: "}  <b>{getString(userEvent.status)}</b>{" "}
               </h3>
 
               {(eventDetails?.metaTitles?.length ||
