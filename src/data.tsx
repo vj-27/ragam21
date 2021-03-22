@@ -316,7 +316,7 @@ export interface EventDetailsType {
     updated_at: string;
   }[];
 }
-export const backendURI = "https://api.ragam.live/";
+export const backendURI = "http://api.staging.ragam.live/";
 export const EventById = {
   id: 1659,
   name: "Demo heloo 33",

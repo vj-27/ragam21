@@ -35,9 +35,19 @@ interface MyRegProps extends PropTypes {
   getUserEvents: () => void;
 }
 
-var j = 0;
+function getString(stats:string){
+if(stats=="participating") return("Registered")
+if(stats=="knocked_out") return("Entry  Knocked Out")
+if(stats=="position_1") return("First Prize Entry")
+if(stats=="position_2") return("Runner Up")
+if(stats=="position_3") return("Second Runner Up")
+if(stats=="consolation") return("Consolation Prize")
+ return "";
+
+
+}
 function getDefaultfileList(listArr: RegEventDetail["submissions"]) {
-  let myArr = [];
+  let myArr:UploadFile<any>[] = [];
   if (listArr)
     for (let i in listArr) {
       myArr.push({
@@ -79,7 +89,11 @@ export default function MyRegistationPage(props: MyRegProps) {
   function unregisterfromEvent() {
     if (!userEvent) return;
     let myLocalTeam = [];
-
+    if (dayjs(eventDetails?.regEndDate).diff(dayjs()) < 0) {
+      message.error("Cannot unregister as registration time has ended.");
+      setVisibleModal(false);
+      return;
+    }
     for (let xi in userEvent.teamMembers) {
       if (userEvent.teamMembers[xi].id != props.user.id)
         myLocalTeam.push(userEvent.teamMembers[xi]);
@@ -146,8 +160,13 @@ export default function MyRegistationPage(props: MyRegProps) {
   }
   // Modal
   const handleOkModalRemove = useCallback(() => {
-    if (!userEvent || !fileX) return; //shoud=ld never happer!!
-
+    if (!userEvent || !fileX || !eventDetails) return; //shoud=ld never happer!!
+    if (dayjs(eventDetails.submissionDate).diff(dayjs()) < 0) {
+      message.error("Submission time has ended.");
+      removePromise.resolve(false);
+      setVisibleModal(false);
+      return;
+    }
     let mySubs = [];
 
     for (let i in userEvent.submissions) {
@@ -156,6 +175,7 @@ export default function MyRegistationPage(props: MyRegProps) {
       }
     }
     //show loading here !!!!!!!!!!!
+    setVisibleModal(false);
     fetch(backendURI + "user-event-details/" + userEvent.id, {
       method: "PUT",
       headers: {
@@ -200,6 +220,10 @@ export default function MyRegistationPage(props: MyRegProps) {
 
   const [fileList, setFileList] = useState<any[]>([]);
   function handleChange(info: any) {
+    if (!eventDetails) return;
+    if (dayjs(eventDetails.submissionDate).diff(dayjs()) < 0) {
+      return;
+    }
     if (info.file.status !== "uploading") {
       console.log(info.file, info.fileList);
     }
@@ -210,8 +234,13 @@ export default function MyRegistationPage(props: MyRegProps) {
     }
   }
   const uploadImage = async (options: any) => {
-    if (!userEvent) return;
+    if (!userEvent || !eventDetails) return;
     const { onSuccess, onError, file, onProgress } = options;
+    if (dayjs(eventDetails.submissionDate).diff(dayjs()) < 0) {
+      message.error("Submission time has ended.");
+      onError("Submission time has Ended");
+      return;
+    }
 
     const fmData = new FormData();
     const config = {
@@ -346,47 +375,50 @@ export default function MyRegistationPage(props: MyRegProps) {
               }}
             >
               <h3>
-                Registration Status : <b>{userEvent.status}</b>{" "}
+                Registration Status : <b>{getString(userEvent.status)}</b>{" "}
               </h3>
 
-              {(eventDetails?.metaTitles?.length || eventDetails?.isTeamEvent) &&<Card
-              id="myreg_meta_teammates_card"
-                style={{
-                  width: "800px",
-                  maxWidth: "95%",
-                  margin: "auto",
-                  marginTop: "25px",
-                }}
-              >
-                {eventDetails?.metaTitles?.map((val, index) => {
-                  return (
-                    <div key={val}>
-                      <br />
-                      <h3 style={{ fontWeight: "bold" }}> {val} </h3>
-                      <h4>
-                        {userEvent.metaValues
-                          ? userEvent.metaValues[index]
-                          : "NOT AVAILABLE!!"}
-                      </h4>
-                    </div>
-                  );
-                })}
-                <Divider />
-                {eventDetails?.isTeamEvent && (
-                  <Team
-                    minTeamSize={eventDetails.minTeamSize}
-                    maxTeamSize={eventDetails.maxTeamSize}
-                    token={props.user.token}
-                    userEvent={userEvent}
-                    setUserEvent={setUserEvent}
-                    uId={props.user.id}
-                    getUserEvents={props.getUserEvents}
-                  />
-                )}
-              </Card>}
+              {(eventDetails?.metaTitles?.length ||
+                eventDetails?.isTeamEvent) && (
+                <Card
+                  id="myreg_meta_teammates_card"
+                  style={{
+                    width: "800px",
+                    maxWidth: "95%",
+                    margin: "auto",
+                    marginTop: "25px",
+                  }}
+                >
+                  {eventDetails?.metaTitles?.map((val, index) => {
+                    return (
+                      <div key={val}>
+                        <br />
+                        <h3 style={{ fontWeight: "bold" }}> {val} </h3>
+                        <h4>
+                          {userEvent.metaValues
+                            ? userEvent.metaValues[index]
+                            : "NOT AVAILABLE!!"}
+                        </h4>
+                      </div>
+                    );
+                  })}
+                  <Divider />
+                  {eventDetails?.isTeamEvent && (
+                    <Team
+                      minTeamSize={eventDetails.minTeamSize}
+                      maxTeamSize={eventDetails.maxTeamSize}
+                      token={props.user.token}
+                      userEvent={userEvent}
+                      setUserEvent={setUserEvent}
+                      uId={props.user.id}
+                      getUserEvents={props.getUserEvents}
+                    />
+                  )}
+                </Card>
+              )}
               {eventDetails?.isSubmissionEvent && (
                 <Card
-                id="myreg_submissioncard"
+                  id="myreg_submissioncard"
                   style={{
                     width: "800px",
                     maxWidth: "95%",
@@ -404,40 +436,39 @@ export default function MyRegistationPage(props: MyRegProps) {
                     </div>
                   )}
 
-                  {eventDetails?.isSubmissionEvent &&
-                    dayjs(eventDetails.submissionDate).diff(dayjs()) > 0 && (
-                      <div>
-                        <Modal
-                          title="Delete file"
-                          visible={visibleModal}
-                          onOk={handleOkModalRemove}
-                          onCancel={handleCancelModalRemove}
-                        >
-                          <p>Are you sure you want to remove this file? </p>
-                        </Modal>
-                        <Upload.Dragger
+                  {eventDetails?.isSubmissionEvent && (
+                    <div>
+                      <Modal
+                        title="Delete file"
+                        visible={visibleModal}
+                        onOk={handleOkModalRemove}
+                        onCancel={handleCancelModalRemove}
+                      >
+                        <p>Are you sure you want to remove this file? </p>
+                      </Modal>
+                      <Upload.Dragger
                         id="myreg_upload_component"
-                          style={{ marginTop: "15px" }}
-                          customRequest={uploadImage}
-                          onChange={handleChange}
-                          listType="picture"
-                          className="upload-list-inline"
-                          progress={{ showInfo: true }}
-                          defaultFileList={getDefaultfileList(
-                            userEvent.submissions
-                          )}
-                          onRemove={(file: UploadFile) => handleRemove(file)}
-                          multiple={true}
-                        >
-                          <p className="ant-upload-drag-icon">
-                            <InboxOutlined />
-                          </p>
-                          <p className="ant-upload-text">
-                            Click / Drag and Drop to Upload
-                          </p>
-                        </Upload.Dragger>
-                      </div>
-                    )}
+                        style={{ marginTop: "15px" }}
+                        customRequest={uploadImage}
+                        onChange={handleChange}
+                        listType="picture"
+                        className="upload-list-inline"
+                        progress={{ showInfo: true }}
+                        defaultFileList={getDefaultfileList(
+                          userEvent.submissions
+                        )}
+                        onRemove={(file: UploadFile) => handleRemove(file)}
+                        multiple={true}
+                      >
+                        <p className="ant-upload-drag-icon">
+                          <InboxOutlined />
+                        </p>
+                        <p className="ant-upload-text">
+                          Click / Drag and Drop to Upload
+                        </p>
+                      </Upload.Dragger>
+                    </div>
+                  )}
                 </Card>
               )}
               {eventDetails && (
