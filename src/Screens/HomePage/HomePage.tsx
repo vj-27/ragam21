@@ -14,7 +14,7 @@ import frontImg from "../../assets/img/front.jpeg";
 import backImg from "../../assets/img/back.jpeg";
 import l1 from "../../assets/img/l1.jpeg";
 import l2 from "../../assets/img/l2.jpeg";
-import l3 from "../../assets/img/l3.jpeg";
+import l3 from "../../assets/img/l3.jpg";
 import r1 from "../../assets/img/r1.jpeg";
 import r2 from "../../assets/img/r2.jpeg";
 import r3 from "../../assets/img/r3.jpeg";
