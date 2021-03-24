@@ -22,7 +22,7 @@ function getUser(
   val: RegExpMatchArray | null,
   ragamId: string,
   token: string
-) {}
+) { }
 function showMessage(
   localTeamx: RegEventDetail["teamMembers"],
   minTeamSize: number,
@@ -71,10 +71,12 @@ export default function Team(props: TeamProps) {
     collegeName: "",
     ragamID: "",
   });
+
   const [addStatus, setAddStatus] = useState({
     type: 1,
     value: "Enter a valid ragamId",
   });
+
   const re = /^[a-zA-Z]{6}$/;
   function removeTeamMate(valId: string) {
     let myLocalTeam = [];
@@ -117,6 +119,7 @@ export default function Team(props: TeamProps) {
         }
       );
   }
+
   function removeTeamMateConfirm(val: { id: string; name: string }) {
     Modal.confirm({
       title: "Remove Teammate ",
@@ -191,10 +194,12 @@ export default function Team(props: TeamProps) {
       {nUser == -1 && (
         <div style={{ marginTop: "15px" }}>
           <Input
+            data-test-id='add-member-inp'
             placeholder="RAGAM ID of teammate"
             onChange={(e) => {
               const nRagamId = e.target.value;
               const myRagamId = nRagamId.toUpperCase();
+
               if (!myRagamId.match(re))
                 setAddStatus({ type: 1, value: "Enter a Valid RagamID" });
               else if (!isNotin(props.userEvent.teamMembers, myRagamId)) {
@@ -249,6 +254,7 @@ export default function Team(props: TeamProps) {
             style={{ marginTop: "15px", marginBottom: "15px" }}
             message={addStatus.value}
             showIcon
+
             type={
               addStatus.type == 1
                 ? "error"
@@ -263,6 +269,7 @@ export default function Team(props: TeamProps) {
               id="myreg_addteammate"
               style={{ marginRight: "15px" }}
               onClick={() => {
+
                 if (dayjs(props.regEndDate).diff(dayjs()) < 0) {
                   setAddStatus({
                     type: 1,
@@ -348,6 +355,7 @@ export default function Team(props: TeamProps) {
           </Button>
         </div>
       )}
+
 
       {props.userEvent.teamMembers.length < props.maxTeamSize &&
         nUser == -2 &&

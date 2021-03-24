@@ -24,6 +24,7 @@ function HeaderProfile(props: HeaderProps) {
           <div className="header_backbtn">
             {props.showBack &&
             <Button
+              data-test-id='profile-back-btn'
               id="Header_profile_back"
               shape="circle"
               icon={<ArrowLeftOutlined />}

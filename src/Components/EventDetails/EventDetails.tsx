@@ -125,7 +125,7 @@ export default function EventDetails(props: EventDetailsProps) {
         dashimg={
           isEventFound
             ? backendURI.slice(0, -1) +
-              props.categories[catCount].events[eventCount].coverImage?.url
+            props.categories[catCount].events[eventCount].coverImage?.url
             : undefined
         }
         user={props.user}
@@ -148,10 +148,10 @@ export default function EventDetails(props: EventDetailsProps) {
                 {props.categories[catCount].events[eventCount].isRegOpen
                   ? "Registration Open.."
                   : dayjs(
-                      props.categories[catCount].events[eventCount].regStartDate
-                    ).diff(dayjs()) < 0
-                  ? "Registration has Ended!!"
-                  : "Registration starts on " +
+                    props.categories[catCount].events[eventCount].regStartDate
+                  ).diff(dayjs()) < 0
+                    ? "Registration has Ended!!"
+                    : "Registration starts on " +
                     dayjs(
                       props.categories[catCount].events[eventCount].regStartDate
                     ).format("DD MMMM hh:mm a ")}
@@ -237,6 +237,7 @@ export default function EventDetails(props: EventDetailsProps) {
                   key="1"
                   style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                 >
+
                   <Card className="card">
                     {props.categories[catCount].events[eventCount].posterImage
                       .length != 0 && (
@@ -295,7 +296,9 @@ export default function EventDetails(props: EventDetailsProps) {
                   key="3"
                   style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                 >
-                  <Card className="card">
+                  <Card
+                    data-test-id='contact-card'
+                    className="card">
                     {props.categories[catCount].events[eventCount].contacts.map(
                       (contact) => {
                         return (

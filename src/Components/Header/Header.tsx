@@ -41,6 +41,7 @@ function Header(props: HeaderProps) {
           <div className="header_backbtn">
             {props.showBack &&
             <Button
+             data-test-id='back-btn'
               id="Header_Back"
               shape="circle"
               icon={<ArrowLeftOutlined />}
@@ -52,13 +53,15 @@ function Header(props: HeaderProps) {
           </Link>
           <div className="header_profile">
             {props.user?.isLoggedIn?
-            <Link to="/profile/" id="Header_Profile">
+            <Link data-test-id='profile-btn' to="/profile/" id="Header_Profile">
             <Avatar icon={<UserOutlined />} />
           </Link>
             :
             <Link to="/login">
-            <Button type="primary">
-              
+            <Button
+            data-test-id='login-btn'
+             type="primary">
+
                 Login
             </Button>
             </Link>

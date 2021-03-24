@@ -68,6 +68,7 @@ export default function EditProfile(props: EditProps) {
                   left: "Name",
                   right: (
                     <Input
+                      data-test-id='name-inp'
                       defaultValue={props.userDetails.name}
                       placeholder="Name"
                       onChange={(e) => {
@@ -80,6 +81,7 @@ export default function EditProfile(props: EditProps) {
                   left: "College",
                   right: (
                     <Input
+                      data-test-id='college-inp'
                       defaultValue={props.userDetails.collegeName}
                       placeholder="College Name"
                       onChange={(e) => {
@@ -92,6 +94,7 @@ export default function EditProfile(props: EditProps) {
                   left: "Phone",
                   right: (
                     <Input
+                      data-test-id='phone-inp'
                       defaultValue={props.userDetails.phoneNumber}
                       placeholder="10 digit Phone"
                       onChange={(e) => {
