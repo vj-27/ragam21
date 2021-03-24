@@ -2,6 +2,8 @@ import { PropTypes, onLogout, backendURI } from "../../data";
 import { Button, Input, message, Table } from "antd";
 import Header from "../../Components/Header/Header";
 import React, { Dispatch, SetStateAction, useState } from "react";
+import Footer from "../../Components/Footer/Footer";
+
 import { useHistory, useParams } from "react-router-dom";
 interface EditProps extends PropTypes {
   getUserEvents: () => void;
@@ -159,8 +161,8 @@ export default function EditProfile(props: EditProps) {
                       (result) => {
                         //verify the result
                         console.log(result);
-                        if (result.statuscode == 400) {
-                          alert(result.message);
+                        if (result.statuscode) {
+                          message.error(result.message);
                         } else {
                           console.log(result);
                           message.success("Profile Updated Successfully",5)
@@ -187,6 +189,7 @@ export default function EditProfile(props: EditProps) {
             >
               Submit
             </Button>
+            <Footer/>
             </>
 
         )

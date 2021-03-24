@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Button, Tabs, Card, Typography, message } from "antd";
+import {
+  Button,
+  Tabs,
+  Card,
+  Carousel,
+  Image,
+  Typography,
+  message,
+  Alert,
+} from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import Header from "../../Components/Header/Header";
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import Footer from "../Footer/Footer";
 import {
   EventById,
   EventsInCategory,
@@ -87,9 +97,14 @@ export default function EventDetails(props: EventDetailsProps) {
       .then((res) => res.json())
       .then(
         (result) => {
+          if(result.statusCode){
+            message.error(result.message, 5);
+          }
+           else {
           props.getUserEvents();
           message.success("Registration successful!");
           console.log(result);
+           }
         },
         (error) => {
           console.log(error);
@@ -118,7 +133,7 @@ export default function EventDetails(props: EventDetailsProps) {
 
       <div
         style={{
-          width: "100vw",
+          width: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -144,39 +159,41 @@ export default function EventDetails(props: EventDetailsProps) {
             )}
 
             <div style={{ display: "inline-block", marginBottom: "15px" }}>
-              {props.user.isLoggedIn ? (
-                showRegButton(props.userDetails.eventDetails, currentEventid) &&
-                props.categories[catCount].events[eventCount].isRegOpen &&
-                props.userDetails.name &&
-                props.userDetails.phoneNumber &&
-                props.userDetails.collegeName && (
-                  <Button
-                    type="primary"
-                    className="buttons"
-                    id="EventDetails_RegButton"
-                    icon={<DownloadOutlined />}
-                    onClick={() => register()}
-                  >
-                    {Registerbtntext}
-                  </Button>
-                )
-              ) : (
-                props.categories[catCount].events[eventCount].isRegOpen &&
-                <a
-                  href={backendURI + "connect/google"}
-                  onClick={() => {
-                    localStorage.setItem("navTo", "/event/" + eId);
-                  }}
-                >
-                  <Button
-                    type="primary"
-                    className="buttons"
-                    id="EventDetails_LoginButton"
-                  >
-                    Register
-                  </Button>
-                </a>
-              )}
+              {props.user.isLoggedIn
+                ? showRegButton(
+                    props.userDetails.eventDetails,
+                    currentEventid
+                  ) &&
+                  props.categories[catCount].events[eventCount].isRegOpen &&
+                  props.userDetails.name &&
+                  props.userDetails.phoneNumber &&
+                  props.userDetails.collegeName && (
+                    <Button
+                      type="primary"
+                      className="buttons"
+                      id="EventDetails_RegButton"
+                      icon={<DownloadOutlined />}
+                      onClick={() => register()}
+                    >
+                      {Registerbtntext}
+                    </Button>
+                  )
+                : props.categories[catCount].events[eventCount].isRegOpen && (
+                    <a
+                      href={backendURI + "connect/google"}
+                      onClick={() => {
+                        localStorage.setItem("navTo", "/event/" + eId);
+                      }}
+                    >
+                      <Button
+                        type="primary"
+                        className="buttons"
+                        id="EventDetails_LoginButton"
+                      >
+                        Register
+                      </Button>
+                    </a>
+                  )}
               {props.user.isLoggedIn &&
                 props.categories[catCount].events[eventCount].isRegOpen &&
                 (!props.userDetails.name ||
@@ -220,21 +237,44 @@ export default function EventDetails(props: EventDetailsProps) {
                   key="1"
                   style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                 >
-                  <Card
-                    data-test-id='description-card'
-                    className="card">
-                    {props.categories[catCount].events[
-                      eventCount
-                    ].posterImage.map((val) => {
-                      return (
-                        <img
-                          style={{ display: "block", width: "100%" }}
-                          src={backendURI.slice(0, -1) + val.url}
+
+                  <Card className="card">
+                    {props.categories[catCount].events[eventCount].posterImage
+                      .length != 0 && (
+                      <div className="noscroll">
+                        <div
+                          style={{ whiteSpace: "nowrap", overflowX: "auto" }}
+                        >
+                          {props.categories[catCount].events[
+                            eventCount
+                          ].posterImage.map((val) => {
+                            return (
+                              <Image
+                                style={{
+                                  padding: "5px",
+                                }}
+                                width={300}
+                                src={backendURI.slice(0, -1) + val.url}
+                              />
+                            );
+                          })}
+                        </div>
+                        <Alert
+                          style={{
+                            transform: "scale(0.7)",
+                            marginBottom: "15px",
+                          }}
+                          message="Tap on the image to enlarge"
+                          showIcon
+                          type="info"
                         />
-                      );
-                    })}
+                      </div>
+                    )}
                     <Typography.Paragraph>
-                      {props.categories[catCount].events[eventCount].description}
+                      {
+                        props.categories[catCount].events[eventCount]
+                          .description
+                      }
                     </Typography.Paragraph>
                   </Card>
                 </TabPane>
@@ -243,9 +283,7 @@ export default function EventDetails(props: EventDetailsProps) {
                   key="2"
                   style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                 >
-                  <Card
-                    data-test-id='rules-card'
-                    className="card">
+                  <Card className="card">
                     {NewlineText(
                       props.categories[catCount].events[eventCount].rules
                     ).map((val) => {
@@ -280,9 +318,7 @@ export default function EventDetails(props: EventDetailsProps) {
                     key="4"
                     style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                   >
-                    <Card
-                      data-test-id='result-card'
-                      className="card">
+                    <Card className="card">
                       {NewlineText(
                         props.categories[catCount].events[eventCount].result
                       ).map((val) => {
@@ -297,6 +333,7 @@ export default function EventDetails(props: EventDetailsProps) {
         ) : (
           <div> 404!! </div>
         )}
+        <Footer/>
       </div>
     </>
   );

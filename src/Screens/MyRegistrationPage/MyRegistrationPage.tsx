@@ -22,12 +22,14 @@ import {
   RegEventDetail,
   backendURI,
 } from "../../data";
+import Footer from "../../Components/Footer/Footer";
 import {
   UploadOutlined,
   InboxOutlined,
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import { UploadFile } from "antd/lib/upload/interface";
+import { HemisphereLight } from "three";
 interface ParamTypes {
   eId: string;
 }
@@ -116,7 +118,7 @@ export default function MyRegistationPage(props: MyRegProps) {
           (result) => {
             //verify the result
             console.log(result);
-            if (result.statuscode == 400) {
+            if (result.statuscode) {
               message.error(result.message);
             } else {
               props.getUserEvents();
@@ -143,7 +145,7 @@ export default function MyRegistationPage(props: MyRegProps) {
           (result) => {
             //verify the result
             console.log(result);
-            if (result.statuscode == 400) {
+            if (result.statuscode) {
               message.error(result.message);
             } else {
               props.getUserEvents();
@@ -167,8 +169,9 @@ export default function MyRegistationPage(props: MyRegProps) {
       removePromise.resolve(false);
       setVisibleModal(false);
       return;
-    }else if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) > -15*60*100 && dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0){
+    }else if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) > -15*60*1000 && dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0){
       message.warning("Submission marked as Late!!",6);
+      console.log("HEREERERRERERR")
     }
     let mySubs:RegEventDetail["submissions"] = [];
 
@@ -194,7 +197,7 @@ export default function MyRegistationPage(props: MyRegProps) {
         (result) => {
           //verify the result
           console.log(result);
-          if (result.statuscode == 400) {
+          if (result.statuscode) {
             message.error(result.message);
 
             setVisibleModal(false);
@@ -241,12 +244,15 @@ export default function MyRegistationPage(props: MyRegProps) {
   const uploadImage = async (options: any) => {
     if (!userEvent || !eventDetails) return;
     const { onSuccess, onError, file, onProgress } = options;
-    if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) < -15*60*100) {
+    if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) < -15*60*1000) {
       message.error("Submission time has ended.");
       onError("Submission time has Ended");
+      console.log("ERR HemisphereLight")
       return;
-    }else if(dayjs(eventDetails.submissionEndDate).diff(dayjs()) > -15*60*100 && dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0){
+    }else if(dayjs(eventDetails.submissionEndDate).diff(dayjs()) > -15*60*1000 && dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0){
       message.warning("Submission marked as Late!!",6)
+      console.log("ERR HemisphereLighxDt")
+
     }
 
     const fmData = new FormData();
@@ -292,11 +298,17 @@ export default function MyRegistationPage(props: MyRegProps) {
       .then((res) => res.json())
       .then(
         (result) => {
+          console.log(result);
+          if(result.statusCode){
+            message.error(result.message, 5);
+          }
+           else {
           //verify the result
           setLoading(false);
           setUserEvent(result);
           setfilelistX(getDefaultfileList(result.submissions));
           console.log(result);
+           }
         },
         (error) => {
           console.log(error);
@@ -389,7 +401,7 @@ export default function MyRegistationPage(props: MyRegProps) {
               }}
             >
               <h3>
-                Registration Status : <b>{getString(userEvent.status)}</b>{" "}
+                {userEvent.status=="participating" || userEvent.status=="knocked_out"?  "Status: ": "Result: "}  <b>{getString(userEvent.status)}</b>{" "}
               </h3>
 
               {(eventDetails?.metaTitles?.length ||
@@ -421,6 +433,8 @@ export default function MyRegistationPage(props: MyRegProps) {
                     <Team
                       minTeamSize={eventDetails.minTeamSize}
                       maxTeamSize={eventDetails.maxTeamSize}
+                      isSubmissionEvent={eventDetails.isSubmissionEvent}
+                      regEndDate={eventDetails.regEndDate}
                       token={props.user.token}
                       userEvent={userEvent}
                       setUserEvent={setUserEvent}
@@ -515,6 +529,7 @@ export default function MyRegistationPage(props: MyRegProps) {
           </>
         )
       )}
+      <Footer/>
     </div>
   );
 }
