@@ -5,7 +5,7 @@ import useFitText from "use-fit-text";
 import { UserOutlined } from "@ant-design/icons";
 import { useHistory,Link } from "react-router-dom";
 import {backendURI} from "../../data";
-import logo from "../../assets/Final logo.svg";
+import logo from "../../assets/white_logo.svg";
 // const avatar = {
 //   avtrimage: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
 // };

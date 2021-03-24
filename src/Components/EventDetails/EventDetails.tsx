@@ -13,6 +13,7 @@ import { DownloadOutlined } from "@ant-design/icons";
 import Header from "../../Components/Header/Header";
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import Footer from "../Footer/Footer";
 import {
   EventById,
   EventsInCategory,
@@ -324,6 +325,7 @@ export default function EventDetails(props: EventDetailsProps) {
         ) : (
           <div> 404!! </div>
         )}
+        <Footer/>
       </div>
     </>
   );

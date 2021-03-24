@@ -97,7 +97,7 @@ function App() {
         },
         //handle 401 here
       })
-        .then((res) => res.json())
+        .then((res) => {if(res.status!==200) message.error("Some Error Occurred") ; return res.json()})
         .then((result) => {
           if (result.statusCode == 401) {
             onLogout({
@@ -108,7 +108,10 @@ function App() {
               setUser: setUser,
             });
             message.error("Session Expired! Please Login again.", 5);
-          } else {
+          }else if(result.statusCode){
+            message.error(result.message, 5);
+          }
+           else {
             console.log(user.token);
             setuserDetails(result);
             setCatloading(false);

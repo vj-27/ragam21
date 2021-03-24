@@ -5,6 +5,7 @@ import { Table, Space, Button, Card, message } from "antd";
 import useFitText from "use-fit-text";
 import EventCard from "../../Components/EventCard/EventCard";
 import { useHistory, Link } from "react-router-dom";
+import Footer from "../../Components/Footer/Footer";
 export default function ProfilePage(props: PropTypes) {
   const { fontSize, ref } = useFitText({ maxFontSize: 200, minFontSize: 80 });
   const [myEvents, setMyEvents] = useState<EventDetailsType[]>([]);
@@ -85,9 +86,9 @@ export default function ProfilePage(props: PropTypes) {
             >
               <h2>Registered Events</h2>
             </div>
+            <div style={{width: "800px", maxWidth: "95vw", margin: "auto"}}>
             {myEvents.map((value) => {
               return (
-                <>
                   <Link to={"/event/" + value.slug} id={"profile_eventcard_"+value.slug} key={value.slug}>
                     <div className="catCard_mainWrapper">
                       <Card
@@ -117,14 +118,16 @@ export default function ProfilePage(props: PropTypes) {
                       </Card>
                     </div>
                   </Link>
-                </>
+                
               );
             })}
+            </div>
           </div>
         ) : (
           <div> You are not logged in!! </div>
         )}
       </div>
+      <Footer/>
     </div>
   );
 }

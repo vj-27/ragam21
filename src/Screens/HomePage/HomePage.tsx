@@ -19,10 +19,10 @@ import r1 from "../../assets/img/r1.jpeg";
 import r2 from "../../assets/img/r2.jpeg";
 import r3 from "../../assets/img/r3.jpeg";
 export default function HomePage(props: PropTypes) {
-  const leftArr = [l1,l2,l3];
-  const rightArr = [r1,r2,r3];
+  const leftArr = [l1, l2, l3];
+  const rightArr = [r1, r2, r3];
   const ln = Math.floor(Math.random() * 3);
-  const rn = Math.floor(Math.random() * 3);  
+  const rn = Math.floor(Math.random() * 3);
   const mount = useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     var scene = new THREE.Scene();
@@ -154,7 +154,7 @@ export default function HomePage(props: PropTypes) {
     let funct = () => {
       if (flag) {
         controls = new DeviceOrientationControls(camera);
-        controls.alphaOffset  = -1.5708;
+        controls.alphaOffset = -1.5708;
       } else {
         document.addEventListener("mousemove", onMouseMove, false);
         console.log("reached here");
@@ -168,7 +168,6 @@ export default function HomePage(props: PropTypes) {
     var update1 = () => {
       if (flag && controls) {
         controls.update();
-        
       } else {
         target.x = (1 - mouse.x) * 0.002;
         target.y = (1 - mouse.y) * 0.002;
@@ -212,7 +211,11 @@ export default function HomePage(props: PropTypes) {
             }}
           >
             <Link to="/events">
-              <Button type="primary">Explore Events</Button>
+              <button
+              className="btn_home"
+              >
+                Explore Events
+              </button>
             </Link>
           </div>
           {props.user.isLoggedIn && (
