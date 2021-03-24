@@ -70,6 +70,7 @@ function App() {
     fetch(backendURI + "categories")
       .then((response) => {
         if (response.ok) return response.json();
+        else message.error("Some error Occurred. Please try again later.")
       })
       .then((json) => {
         for (let i in json)

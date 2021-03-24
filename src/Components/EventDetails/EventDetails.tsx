@@ -97,9 +97,14 @@ export default function EventDetails(props: EventDetailsProps) {
       .then((res) => res.json())
       .then(
         (result) => {
+          if(result.statusCode){
+            message.error(result.message, 5);
+          }
+           else {
           props.getUserEvents();
           message.success("Registration successful!");
           console.log(result);
+           }
         },
         (error) => {
           console.log(error);

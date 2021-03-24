@@ -158,8 +158,8 @@ export default function EditProfile(props: EditProps) {
                       (result) => {
                         //verify the result
                         console.log(result);
-                        if (result.statuscode == 400) {
-                          alert(result.message);
+                        if (result.statuscode) {
+                          message.error(result.message);
                         } else {
                           console.log(result);
                           message.success("Profile Updated Successfully",5)

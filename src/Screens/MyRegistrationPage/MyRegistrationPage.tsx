@@ -118,7 +118,7 @@ export default function MyRegistationPage(props: MyRegProps) {
           (result) => {
             //verify the result
             console.log(result);
-            if (result.statuscode == 400) {
+            if (result.statuscode) {
               message.error(result.message);
             } else {
               props.getUserEvents();
@@ -145,7 +145,7 @@ export default function MyRegistationPage(props: MyRegProps) {
           (result) => {
             //verify the result
             console.log(result);
-            if (result.statuscode == 400) {
+            if (result.statuscode) {
               message.error(result.message);
             } else {
               props.getUserEvents();
@@ -197,7 +197,7 @@ export default function MyRegistationPage(props: MyRegProps) {
         (result) => {
           //verify the result
           console.log(result);
-          if (result.statuscode == 400) {
+          if (result.statuscode) {
             message.error(result.message);
 
             setVisibleModal(false);
@@ -300,11 +300,16 @@ export default function MyRegistationPage(props: MyRegProps) {
       .then(
         (result) => {
           console.log(result);
+          if(result.statusCode){
+            message.error(result.message, 5);
+          }
+           else {
           //verify the result
           setLoading(false);
           setUserEvent(result);
           setfilelistX(getDefaultfileList(result.submissions));
           console.log(result);
+           }
         },
         (error) => {
           console.log(error);

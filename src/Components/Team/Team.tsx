@@ -103,7 +103,7 @@ export default function Team(props: TeamProps) {
         (result) => {
           //verify the result
           console.log(result);
-          if (result.statusCode == 400) {
+          if (result.statusCode) {
             message.error(result.message);
           } else {
             props.setUserEvent(result);
@@ -215,7 +215,10 @@ export default function Team(props: TeamProps) {
                   .then(
                     (result) => {
                       //verify the result
-                      if (result.message == "Invalid ID") {
+                      if(result.statusCode){
+                        message.error(result.message, 5);
+                      }
+                       else if (result.message == "Invalid ID") {
                         setAddStatus({
                           type: 1,
                           value: "No user found with RagamId " + myRagamId,
@@ -292,7 +295,10 @@ export default function Team(props: TeamProps) {
                     (result) => {
                       //verify the result
                       console.log(result);
-                      if (result.statusCode == 400) {
+                      if(result.statusCode){
+                        message.error(result.message, 5);
+                      }
+                       else if (result.statusCode == 400) {
                         setAddStatus({
                           type: 1,
                           value:
