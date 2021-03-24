@@ -5,6 +5,7 @@ import Header from "../../Components/Header/Header";
 import { useParams } from "react-router-dom";
 import { Cats, backendURI,EventCategories, PropTypes } from "../../data";
 import { useState } from "react";
+import Footer from "../../Components/Footer/Footer";
 interface ParamTypes {
   cId: string;
 }
@@ -57,7 +58,7 @@ export default function EventListPage(props: PropTypes) {
           <div className="center-align" style={{width:"100%", display:"flex",flexDirection:"column", alignItems:"center", margin:"auto"}}>
           <div  style={{maxWidth:"500px",margin:"auto"}}>
             <div style={{display:"flex",flexDirection:"column"}}>
-            <div >
+            <div style={{background:"rgba(255,255,255,0.1)"}}>
               <Input.Search
               data-test-id='search-inp'
               style={{width:"280px"}}
@@ -104,6 +105,7 @@ export default function EventListPage(props: PropTypes) {
 
             })}
             </div>
+            <Footer/>
         </div>
       ) : (
         <div>404!!!</div>

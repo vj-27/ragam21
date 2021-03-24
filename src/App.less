@@ -7,6 +7,7 @@ body {
 * {
   font-family: Raleway;
 }
+
 .App {
   display: flex;
   flex-direction: column;
@@ -38,7 +39,7 @@ body {
 .header_title {
   font-size: 40px;
   position: absolute;
-  width:100%;
+  width: 100%;
   text-align: center;
   display: block;
   line-height: 40px;
@@ -61,7 +62,6 @@ body {
   .header_title {
     font-size: 30px;
     transform: translate(-50%, 32px);
-
   }
   .header_main {
     margin-bottom: 15px;
@@ -69,6 +69,21 @@ body {
 }
 .ant-tabs-nav-list:nth-child(4) {
   margin: "0px 0px 0px 0px";
+}
+.btn_home{
+  background-color: rgba(0,0,0,0); 
+  border: 3px solid white;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: large;
+  transition: 0.1s;
+  &:hover{
+    background-color: white;
+    color:black;
+  }
 }
 
 .header_avatar {
@@ -97,7 +112,7 @@ body {
 }
 .header_logo {
   position: absolute;
-  transform: translate(-50%,-110%);
+  transform: translate(-50%, -110%);
   height: 170px;
   width: 170px;
 }

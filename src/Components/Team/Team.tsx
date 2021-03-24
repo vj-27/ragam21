@@ -170,7 +170,6 @@ export default function Team(props: TeamProps) {
                   {dayjs(props.regEndDate).diff(dayjs()) > 0 && <Button
                     danger
                     id={"MyReg_removefromteam" + val.id}
-                    data-test-id='del-btn'
                     type="primary"
                     style={{ marginLeft: "10px" }}
                     onClick={() => {
