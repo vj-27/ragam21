@@ -237,12 +237,9 @@ export default function EventDetails(props: EventDetailsProps) {
                   key="1"
                   style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                 >
-<<<<<<< HEAD
-                  <Card data-test-id='description-card' className="card">
-=======
 
-                  <Card className="card">
->>>>>>> 92a98c7e4cb49bd9340ffdb7c99232c225ddb915
+                  <Card data-test-id='description-card' className="card">
+
                     {props.categories[catCount].events[eventCount].posterImage
                       .length != 0 && (
                       <div className="noscroll">
@@ -287,11 +284,9 @@ export default function EventDetails(props: EventDetailsProps) {
                   key="2"
                   style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                 >
-<<<<<<< HEAD
+
                   <Card data-test-id='rules-card' className="card">
-=======
-                  <Card className="card">
->>>>>>> 92a98c7e4cb49bd9340ffdb7c99232c225ddb915
+
                     {NewlineText(
                       props.categories[catCount].events[eventCount].rules
                     ).map((val) => {
@@ -324,11 +319,9 @@ export default function EventDetails(props: EventDetailsProps) {
                     key="4"
                     style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                   >
-<<<<<<< HEAD
+
                     <Card data-test-id='result-card' className="card">
-=======
-                    <Card className="card">
->>>>>>> 92a98c7e4cb49bd9340ffdb7c99232c225ddb915
+
                       {NewlineText(
                         props.categories[catCount].events[eventCount].result
                       ).map((val) => {
