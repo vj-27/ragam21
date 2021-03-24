@@ -33,7 +33,7 @@ function showRegButton(
 }
 
 function NewlineText(text: string) {
-  if(!text) return[];
+  if (!text) return [];
   const newText = text
     .split("\n")
     .map((str) => <Typography.Paragraph>{str}</Typography.Paragraph>);
@@ -110,7 +110,7 @@ export default function EventDetails(props: EventDetailsProps) {
         dashimg={
           isEventFound
             ? backendURI.slice(0, -1) +
-              props.categories[catCount].events[eventCount].coverImage?.url
+            props.categories[catCount].events[eventCount].coverImage?.url
             : undefined
         }
         user={props.user}
@@ -133,10 +133,10 @@ export default function EventDetails(props: EventDetailsProps) {
                 {props.categories[catCount].events[eventCount].isRegOpen
                   ? "Registration Open.."
                   : dayjs(
-                      props.categories[catCount].events[eventCount].regStartDate
-                    ).diff(dayjs()) < 0
-                  ? "Registration has Ended!!"
-                  : "Registration starts on " +
+                    props.categories[catCount].events[eventCount].regStartDate
+                  ).diff(dayjs()) < 0
+                    ? "Registration has Ended!!"
+                    : "Registration starts on " +
                     dayjs(
                       props.categories[catCount].events[eventCount].regStartDate
                     ).format("DD MMMM hh:mm a ")}
@@ -220,7 +220,9 @@ export default function EventDetails(props: EventDetailsProps) {
                   key="1"
                   style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                 >
-                  <Card className="card">
+                  <Card
+                    data-test-id='description-card'
+                    className="card">
                     {props.categories[catCount].events[
                       eventCount
                     ].posterImage.map((val) => {
@@ -232,7 +234,7 @@ export default function EventDetails(props: EventDetailsProps) {
                       );
                     })}
                     <Typography.Paragraph>
-                    { props.categories[catCount].events[eventCount].description}
+                      {props.categories[catCount].events[eventCount].description}
                     </Typography.Paragraph>
                   </Card>
                 </TabPane>
@@ -241,8 +243,10 @@ export default function EventDetails(props: EventDetailsProps) {
                   key="2"
                   style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                 >
-                  <Card className="card">
-                  {NewlineText(
+                  <Card
+                    data-test-id='rules-card'
+                    className="card">
+                    {NewlineText(
                       props.categories[catCount].events[eventCount].rules
                     ).map((val) => {
                       return val;
@@ -254,7 +258,9 @@ export default function EventDetails(props: EventDetailsProps) {
                   key="3"
                   style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                 >
-                  <Card className="card">
+                  <Card
+                    data-test-id='contact-card'
+                    className="card">
                     {props.categories[catCount].events[eventCount].contacts.map(
                       (contact) => {
                         return (
@@ -274,12 +280,14 @@ export default function EventDetails(props: EventDetailsProps) {
                     key="4"
                     style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                   >
-                    <Card className="card">
-                    {NewlineText(
-                      props.categories[catCount].events[eventCount].result
-                    ).map((val) => {
-                      return val;
-                    })}
+                    <Card
+                      data-test-id='result-card'
+                      className="card">
+                      {NewlineText(
+                        props.categories[catCount].events[eventCount].result
+                      ).map((val) => {
+                        return val;
+                      })}
                     </Card>
                   </TabPane>
                 )}

@@ -59,6 +59,7 @@ export default function EventListPage(props: PropTypes) {
             <div style={{display:"flex",flexDirection:"column"}}>
             <div >
               <Input.Search
+              data-test-id='search-inp'
               style={{width:"280px"}}
                 size="large"
                 placeholder="SEARCH...."
@@ -76,6 +77,7 @@ export default function EventListPage(props: PropTypes) {
               </Col>
               <Col span={6} style={{ textAlign: "right" }}>
               <Switch
+              data-test-id='toggle-btn'
               style={{marginLeft:"10px"}}
               
                 onClick={Toggler}

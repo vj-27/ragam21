@@ -268,7 +268,6 @@ export default function MyRegistationPage(props: MyRegProps) {
     console.log(file);
     try {
       const res = await axios.post(backendURI + "upload", fmData, config);
-
       onSuccess("Ok");
       console.log("server res: ", res);
       const myUserEvent ={...userEvent};

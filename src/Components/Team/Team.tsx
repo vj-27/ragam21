@@ -19,7 +19,7 @@ function getUser(
   val: RegExpMatchArray | null,
   ragamId: string,
   token: string
-) {}
+) { }
 function showMessage(
   localTeamx: RegEventDetail["teamMembers"],
   minTeamSize: number,
@@ -68,7 +68,7 @@ export default function Team(props: TeamProps) {
     collegeName: "",
     ragamID: "",
   });
-  const [addStatus, setAddStatus] = useState({type:1,value:"Enter a valid ragamId"});
+  const [addStatus, setAddStatus] = useState({ type: 1, value: "Enter a valid ragamId" });
   const re = /^[a-zA-Z]{6}$/;
   function removeTeamMate(valId: string) {
     let myLocalTeam = [];
@@ -107,11 +107,11 @@ export default function Team(props: TeamProps) {
         }
       );
   }
-  function removeTeamMateConfirm(val: {id:string,name:string}) {
+  function removeTeamMateConfirm(val: { id: string, name: string }) {
     Modal.confirm({
       title: "Remove Teammate ",
       icon: <ExclamationCircleOutlined />,
-      content: <p>{"Are you sure you want to Remove "+ val.name+" from you team?"}</p>,
+      content: <p>{"Are you sure you want to Remove " + val.name + " from you team?"}</p>,
       okText: "OK",
       cancelText: "Cancel",
       onOk: () => {
@@ -152,10 +152,11 @@ export default function Team(props: TeamProps) {
                 <Col span={4}>
                   <Button
                     danger
-                    id={"MyReg_removefromteam"+val.id}
+                    id={"MyReg_removefromteam" + val.id}
+                    data-test-id='del-btn'
                     type="primary"
                     style={{ marginLeft: "10px" }}
-                    onClick={() => {removeTeamMateConfirm({id:val.ragamID,name:val.name?val.name:"UnNamed user"}) }}
+                    onClick={() => { removeTeamMateConfirm({ id: val.ragamID, name: val.name ? val.name : "UnNamed user" }) }}
                   >
                     -
                   </Button>
@@ -167,15 +168,16 @@ export default function Team(props: TeamProps) {
       {nUser == -1 && (
         <div style={{ marginTop: "15px" }}>
           <Input
+            data-test-id='add-member-inp'
             placeholder="RAGAM ID of teammate"
             onChange={(e) => {
               const nRagamId = e.target.value;
               const myRagamId = nRagamId.toUpperCase();
-              if (!myRagamId.match(re)) setAddStatus({type:1,value:"Enter a Valid RagamID"});
+              if (!myRagamId.match(re)) setAddStatus({ type: 1, value: "Enter a Valid RagamID" });
               else if (!isNotin(props.userEvent.teamMembers, myRagamId)) {
-                setAddStatus({type:1,value:"User is already present your the Team.."});
+                setAddStatus({ type: 1, value: "User is already present your the Team.." });
               } else {
-                setAddStatus({type:2,value:"Loading..."});
+                setAddStatus({ type: 2, value: "Loading..." });
                 fetch(backendURI + "users/" + myRagamId, {
                   method: "GET",
                   headers: {
@@ -188,9 +190,9 @@ export default function Team(props: TeamProps) {
                     (result) => {
                       //verify the result
                       if (result.message == "Invalid ID") {
-                        setAddStatus({type:1,value:"No user found with RagamId " + myRagamId});
+                        setAddStatus({ type: 1, value: "No user found with RagamId " + myRagamId });
                       } else {
-                        setAddStatus({type:3,value:"user found with name  " + result.name});
+                        setAddStatus({ type: 3, value: "user found with name  " + result.name });
                         setNUserObj({
                           id: result.id,
                           name: result.name,
@@ -208,12 +210,12 @@ export default function Team(props: TeamProps) {
             }}
           />
 
-          
+
           <Alert
-          style={{marginTop:"15px",marginBottom:"15px"}}
-          message={addStatus.value}
-          showIcon
-          type={addStatus.type==1?"error":addStatus.type==2?"info":"success"}
+            style={{ marginTop: "15px", marginBottom: "15px" }}
+            message={addStatus.value}
+            showIcon
+            type={addStatus.type == 1 ? "error" : addStatus.type == 2 ? "info" : "success"}
           />
 
           {nUserObj.id != -1 && (
@@ -221,7 +223,7 @@ export default function Team(props: TeamProps) {
               id="myreg_addteammate"
               style={{ marginRight: "15px" }}
               onClick={() => {
-                setAddStatus({type:2,value:"Submitting..."});
+                setAddStatus({ type: 2, value: "Submitting..." });
                 const myCteam = props.userEvent.teamMembers;
                 let myTeam = [...myCteam];
                 myTeam.push(nUserObj);
@@ -243,7 +245,7 @@ export default function Team(props: TeamProps) {
                       console.log(result);
                       if (result.statusCode == 400) {
 
-                        setAddStatus({type:1,value:"User "+nUserObj.ragamID + " is already Registered for this event in another team"});
+                        setAddStatus({ type: 1, value: "User " + nUserObj.ragamID + " is already Registered for this event in another team" });
                       } else {
                         console.log(result);
                         props.setUserEvent(result);
@@ -270,7 +272,7 @@ export default function Team(props: TeamProps) {
             </Button>
           )}
           <Button
-          id="myreg_cancel"
+            id="myreg_cancel"
             onClick={() => {
               setNUserObj({
                 id: -1,
@@ -278,7 +280,7 @@ export default function Team(props: TeamProps) {
                 ragamID: "",
                 collegeName: "",
               });
-              setAddStatus({type:1,value:"Please Enter a Valid RagamId"});
+              setAddStatus({ type: 1, value: "Please Enter a Valid RagamId" });
               setNUser(-2);
             }}
           >
@@ -289,14 +291,14 @@ export default function Team(props: TeamProps) {
 
       {props.userEvent.teamMembers.length < props.maxTeamSize && nUser == -2 && (
         <Button
-        id="myreg_addmember"
+          id="myreg_addmember"
           style={{
             marginTop: "15px",
           }}
           onClick={() => {
             //this is not needed but just making sure!!
             setNUserObj({ id: -1, name: "", ragamID: "", collegeName: "" });
-            setAddStatus({type:1,value:"Enter a valid ragamId"})
+            setAddStatus({ type: 1, value: "Enter a valid ragamId" })
             setNUser(-1);
           }}
         >
