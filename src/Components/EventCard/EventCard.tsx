@@ -77,25 +77,25 @@ function EventCard(props: EventCardProps) {
             <Row style={{ margin: "15px", marginTop: 0 }}>
               {" "}
               <Col span={8}>Registered </Col>
-              <Col span={16} style={{ textAlign: "right" }}>
+             {props.isSubmissionEvent && <Col span={16} style={{ textAlign: "right" }}>
                 {dayjs(props.submissionEndDate).diff(dayjs()) < 0
-                  ? "Submission has Ended !!"
+                  ? "Submissions closed"
                   : dayjs(props.submissionStartDate).diff(dayjs()) > 0
-                  ? "Submission starts on " +
+                  ? "Submission starts on: " +
                     dayjs(props.submissionStartDate).format("DD MMMM")
-                  : "Submission Deadline " +
+                  : "Submission deadline: " +
                     dayjs(props.submissionEndDate).format("DD MMMM")}{" "}
-              </Col>
+              </Col>}
             </Row>
           ) : (
             <h4 style={{ margin: "15px", marginTop: 0 }}>
               {props.isRegOpen
-                ? "Registration Ends On : " +
+                ? "Registration closes on: " +
                   dayjs(props.regEndDate).format("DD MMMM")
                 : dayjs(props.regStartDate).diff(dayjs()) > 0
-                ? "Registration Starts On : " +
+                ? "Registration starts on: " +
                   dayjs(props.regStartDate).format("DD MMMM")
-                : "Registration has Ended"}
+                : "Registration closed"}
             </h4>
           )}
         </Card>

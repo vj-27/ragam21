@@ -29,7 +29,7 @@ import {
   ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import { UploadFile } from "antd/lib/upload/interface";
-import { HemisphereLight } from "three";
+import Loading from "../../Components/Loading/Loading";
 interface ParamTypes {
   eId: string;
 }
@@ -93,7 +93,7 @@ export default function MyRegistationPage(props: MyRegProps) {
     if (!userEvent) return;
     let myLocalTeam = [];
     if (dayjs(eventDetails?.regEndDate).diff(dayjs()) < 0) {
-      message.error("Cannot unregister as registration time has ended.");
+      message.error("Cannot unregister as registration has closed.");
       setVisibleModal(false);
       return;
     }
@@ -122,14 +122,14 @@ export default function MyRegistationPage(props: MyRegProps) {
               message.error(result.message);
             } else {
               props.getUserEvents();
-              message.success("Unregistered successfully!!");
+              message.success("Unregistered successfully");
               history.goBack();
             }
             console.log(result);
           },
           (error) => {
             console.log(error);
-            message.error("Some error occured Please try again");
+            message.error("Some error occured. Please try again");
           }
         );
     } else {
@@ -149,14 +149,14 @@ export default function MyRegistationPage(props: MyRegProps) {
               message.error(result.message);
             } else {
               props.getUserEvents();
-              message.success("Unregistered successfully!!");
+              message.success("Unregistered successfully");
               history.goBack();
             }
             console.log(result);
           },
           (error) => {
             console.log(error);
-            message.error("Some error occurred Please try again");
+            message.error("Some error occurred. Please try again");
           }
         );
     }
@@ -170,7 +170,7 @@ export default function MyRegistationPage(props: MyRegProps) {
       setVisibleModal(false);
       return;
     }else if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) > -15*60*1000 && dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0){
-      message.warning("Submission marked as Late!!",6);
+      //message.warning("Submission marked as Late!!",6);
       console.log("HEREERERRERERR")
     }
     let mySubs:RegEventDetail["submissions"] = [];
@@ -215,7 +215,7 @@ export default function MyRegistationPage(props: MyRegProps) {
         },
         (error) => {
           console.log(error);
-          message.error("Some Error occurred Please try again");
+          message.error("Some error occurred. Please try again");
         }
       );
   }, [removePromise]);
@@ -236,9 +236,9 @@ export default function MyRegistationPage(props: MyRegProps) {
       console.log(info.file, info.fileList);
     }
     if (info.file.status === "done") {
-      message.success(`${info.file.name} file uploaded successfully`);
+      message.success(`File ${info.file.name} uploaded successfully`);
     } else if (info.file.status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
+      message.error(`File ${info.file.name}  upload failed.`);
     }
   }
   const uploadImage = async (options: any) => {
@@ -246,12 +246,10 @@ export default function MyRegistationPage(props: MyRegProps) {
     const { onSuccess, onError, file, onProgress } = options;
     if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) < -15*60*1000) {
       message.error("Submission time has ended.");
-      onError("Submission time has Ended");
-      console.log("ERR HemisphereLight")
+      onError("Submission time has ended");
       return;
     }else if(dayjs(eventDetails.submissionEndDate).diff(dayjs()) > -15*60*1000 && dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0){
-      message.warning("Submission marked as Late!!",6)
-      console.log("ERR HemisphereLighxDt")
+      message.warning("Submission marked as late",6)
 
     }
 
@@ -312,7 +310,7 @@ export default function MyRegistationPage(props: MyRegProps) {
         },
         (error) => {
           console.log(error);
-          message.error("Some Error occurred Please try again");
+          message.error("Some error occurred. Please try again");
         }
       );
   }
@@ -379,6 +377,7 @@ export default function MyRegistationPage(props: MyRegProps) {
   const history = useHistory();
   return (
     <div>
+      <Loading loading={loading || props.catLoading }/>
       <Header
         mainText={eventDetails ? eventDetails.name : "Loading..."}
         showBack={true}
@@ -423,7 +422,7 @@ export default function MyRegistationPage(props: MyRegProps) {
                         <h4>
                           {userEvent.metaValues
                             ? userEvent.metaValues[index]
-                            : "NOT AVAILABLE!!"}
+                            : "Not Available "}
                         </h4>
                       </div>
                     );
@@ -456,15 +455,15 @@ export default function MyRegistationPage(props: MyRegProps) {
                 >
                   {eventDetails && dayjs(eventDetails.submissionStartDate).diff(dayjs()) > 0 ?
                   <div>
-                  {"Submission Starts at " +
+                  {"Submissions open on: " +
                     dayjs(eventDetails.submissionStartDate).format("DD MMMM hh:mm a")}
                 </div>
                   :
                   dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0 ? (
-                    <div>Submission has Ended!</div>
+                    <div>Submissions closed</div>
                   ) : (
                     <div>
-                      {"Submission Ends at " +
+                      {"Submissions close on: " +
                         dayjs(eventDetails.submissionEndDate).format("DD MMMM hh:mm a")}
                     </div>
                   )}

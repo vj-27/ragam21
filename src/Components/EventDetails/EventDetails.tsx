@@ -11,7 +11,7 @@ import {
 } from "antd";
 import { DownloadOutlined } from "@ant-design/icons";
 import Header from "../../Components/Header/Header";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import Footer from "../Footer/Footer";
 import {
@@ -22,6 +22,7 @@ import {
 } from "../../data";
 import { backendURI } from "../../data";
 import dayjs from "dayjs";
+import Loading from "../Loading/Loading";
 const { TabPane } = Tabs;
 interface ParamTypes {
   eId: string;
@@ -58,7 +59,7 @@ export default function EventDetails(props: EventDetailsProps) {
   const [eventCount, seteventCount] = useState(0);
   const [Registerbtntext, setRegisterbtntext] = useState("Register");
   const [currentEventid, setcurrentEventid] = useState(0);
-
+  const history = useHistory();
   useEffect(() => {
     for (let i = 0; i < props.categories.length; i++) {
       for (let j = 0; j < props.categories[i].events.length; j++) {
@@ -103,6 +104,7 @@ export default function EventDetails(props: EventDetailsProps) {
            else {
           props.getUserEvents();
           message.success("Registration successful!");
+          history.push("/myreg/"+props.categories[catCount].events[eventCount].slug)
           console.log(result);
            }
         },
@@ -115,6 +117,7 @@ export default function EventDetails(props: EventDetailsProps) {
 
   return (
     <>
+    <Loading loading={isLoading} />
       <Header
         mainText={
           isEventFound
@@ -146,11 +149,11 @@ export default function EventDetails(props: EventDetailsProps) {
             {showRegButton(props.userDetails.eventDetails, currentEventid) && (
               <h3 style={{ fontWeight: "bold" }}>
                 {props.categories[catCount].events[eventCount].isRegOpen
-                  ? "Registration Open.."
+                  ? "Registration open"
                   : dayjs(
                       props.categories[catCount].events[eventCount].regStartDate
                     ).diff(dayjs()) < 0
-                  ? "Registration has Ended!!"
+                  ? "Registration closed"
                   : "Registration starts on " +
                     dayjs(
                       props.categories[catCount].events[eventCount].regStartDate
@@ -219,7 +222,7 @@ export default function EventDetails(props: EventDetailsProps) {
                 props.userDetails.collegeName && (
                   <Link to={"/myreg/" + eId} id="EventDetail_myregButton">
                     <Button type="primary" className="buttons" block={true}>
-                      Myregistration
+                      My Registration
                     </Button>
                   </Link>
                 )}

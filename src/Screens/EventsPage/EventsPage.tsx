@@ -4,15 +4,17 @@ import { EventCategories, PropTypes } from "../../data";
 import EventCategoryCard from "../../Components/EventCategoryCard/EventCategoryCard";
 import { useHistory } from "react-router-dom";
 import Footer from "../../Components/Footer/Footer";
-
+import Loading from "../../Components/Loading/Loading";
+import defImg from "../../assets/header_default.jpg";
 export default function EventsPage(props: PropTypes) {
   //we are not handling error.. if its error, it will show loading..
   return (
     <>
+    <Loading loading={props.catLoading} />
       <Header
         showBack={true}
         mainText="EVENTS"
-        dashimg="https://wallpaperaccess.com/full/1261637.png"
+        dashimg={defImg}
         user={props.user}
       />
       {props.catLoading ? (

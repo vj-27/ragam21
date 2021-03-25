@@ -57,7 +57,7 @@ function HeaderHome(props: HeaderProps) {
           </Link>
             :
             <Link to="/login">
-            <Button type="primary">
+            <Button type="primary" size="small">
               
                 Login
             </Button>

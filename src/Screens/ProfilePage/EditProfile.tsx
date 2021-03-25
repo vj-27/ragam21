@@ -139,10 +139,10 @@ export default function EditProfile(props: EditProps) {
           type="primary"
               className="center-align"
               onClick={() => {
-                if (!name) message.error("Enter a valid Name",5);
-                else if (!college) message.error("Enter a valid College Name",5);
+                if (!name) message.error("Enter a valid name",5);
+                else if (!college) message.error("Enter a valid college name",5);
                 else if (!phoneNumber || !phoneNumber.match(re))
-                  message.error("Enter a Valid 10 digit phone number",5);
+                  message.error("Enter a valid 10 digit phone number",5);
                 else {
                   fetch(backendURI + "users/" + props.userDetails.id, {
                     method: "PUT",
@@ -165,7 +165,7 @@ export default function EditProfile(props: EditProps) {
                           message.error(result.message);
                         } else {
                           console.log(result);
-                          message.success("Profile Updated Successfully",5)
+                          message.success("Profile updated successfully",5)
                           props.setUserDetails(result);
                           if (eId) history.push("/event/" + eId);
                           else history.push("/events");
@@ -174,7 +174,7 @@ export default function EditProfile(props: EditProps) {
                       },
                       (error) => {
                         console.log(error);
-                        alert(" Please try again");
+                        message.error(" Some error occurred. Please try again later");
                       }
                     );
                 }
@@ -194,7 +194,7 @@ export default function EditProfile(props: EditProps) {
 
         )
       ) : (
-        <div>You are not Logged In!!</div>
+        <div>You are not logged in</div>
       )}
     </>
   );

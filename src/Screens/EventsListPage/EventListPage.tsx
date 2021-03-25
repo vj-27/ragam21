@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 import { Cats, backendURI,EventCategories, PropTypes } from "../../data";
 import { useState } from "react";
 import Footer from "../../Components/Footer/Footer";
+import Loading from "../../Components/Loading/Loading";
+
 interface ParamTypes {
   cId: string;
 }
@@ -44,7 +46,7 @@ export default function EventListPage(props: PropTypes) {
   }, [props.categories]);
 
   return (
-    <>
+    <><Loading loading={props.catLoading}/>
       <Header
         showBack={true}
         mainText={isCatFound?props.categories[catIdx].name : "Loading.."}

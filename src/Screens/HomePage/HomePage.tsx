@@ -1,4 +1,4 @@
-import React, { RefObject, useRef } from "react";
+import React, { RefObject, useRef, useState } from "react";
 import HeaderHome from "../../Components/Header/HeaderHome";
 import { Link } from "react-router-dom";
 import { PropTypes } from "../../data";
@@ -8,21 +8,35 @@ import * as THREE from "three";
 import { DeviceOrientationControls } from "three/examples/jsm/controls/DeviceOrientationControls.js";
 import leftImg from "../../assets/img/left.jpeg";
 import rightImg from "../../assets/img/right.jpeg";
-import topImg from "../../assets/img/top.jpeg";
-import bottomImg from "../../assets/img/bottom.jpeg";
-import frontImg from "../../assets/img/front.jpeg";
-import backImg from "../../assets/img/back.jpeg";
-import l1 from "../../assets/img/l1.jpeg";
-import l2 from "../../assets/img/l2.jpeg";
-import l3 from "../../assets/img/l3.jpg";
-import r1 from "../../assets/img/r1.jpeg";
-import r2 from "../../assets/img/r2.jpeg";
-import r3 from "../../assets/img/r3.jpeg";
+import topImg from "../../assets/img/T2.jpg";
+import bottomImg from "../../assets/img/T1.jpg";
+import frontImg from "../../assets/img/FRONT.jpg";
+import backImg from "../../assets/img/BACK.jpg";
+import L1 from "../../assets/img/L1.jpg";
+import L2 from "../../assets/img/L2.jpg";
+import L3 from "../../assets/img/L3.jpg";
+import L4 from "../../assets/img/L4.jpg";
+import L5 from "../../assets/img/L5.jpg";
+import L6 from "../../assets/img/L6.jpg";
+import L7 from "../../assets/img/L7.jpg";
+import L8 from "../../assets/img/L8.jpg";
+import L9 from "../../assets/img/L9.jpg";
+import R1 from "../../assets/img/R1.jpg";
+import R2 from "../../assets/img/R2.jpg";
+import R3 from "../../assets/img/R3.jpg";
+import R4 from "../../assets/img/R4.jpg";
+import R5 from "../../assets/img/R5.jpg";
+import R6 from "../../assets/img/R6.jpg";
+import R7 from "../../assets/img/R7.jpg";
+import R8 from "../../assets/img/R8.jpg";
+import R9 from "../../assets/img/R9.jpg";
+import Loading from "../../Components/Loading/Loading";
+
 export default function HomePage(props: PropTypes) {
-  const leftArr = [l1, l2, l3];
-  const rightArr = [r1, r2, r3];
-  const ln = Math.floor(Math.random() * 3);
-  const rn = Math.floor(Math.random() * 3);
+  const leftArr = [L1, L2, L3, L4, L5, L6, L7, L8, L9];
+  const rightArr = [R1, R2, R3, R4, R5, R6, R7, R8, R9];
+  const ln = Math.floor(Math.random() * 9);
+  const [loading, setLoading] = useState(true);
   const mount = useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     var scene = new THREE.Scene();
@@ -65,7 +79,7 @@ export default function HomePage(props: PropTypes) {
     const cubegeometry = new THREE.BoxGeometry(80, 80, 80); //create shape
     let cubeMaterials = [
       new THREE.MeshBasicMaterial({
-        map: new THREE.TextureLoader().load(rightArr[rn]),
+        map: new THREE.TextureLoader().load(rightArr[ln]),
         side: THREE.BackSide,
       }), //right side
       new THREE.MeshBasicMaterial({
@@ -162,7 +176,8 @@ export default function HomePage(props: PropTypes) {
     };
     setTimeout(() => {
       funct();
-    }, 4000);
+      setLoading(false);
+    }, 1000);
 
     //game logic
     var update1 = () => {
@@ -187,9 +202,42 @@ export default function HomePage(props: PropTypes) {
     };
     GameLoop();
   }, []);
+
   return (
     <>
+      <Loading loading={loading} />
       <div ref={mount} style={{ width: "100vw", height: "100vh" }}></div>
+      {!loading && (
+        <div
+          style={{
+            position: "absolute",
+            zIndex: 1000,
+            marginTop: "15px",
+            right: "15px",
+            display:"flex"
+          }}
+        >
+          {props.user.isLoggedIn ? (
+            <Link to="/profile">
+              <button
+                className="btn_home"
+                style={{ margin: "auto", transform: "scale(0.7)" }}
+              >
+                Go to Profile
+              </button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <button
+                className="btn_home"
+                style={{ margin: "auto", transform: "scale(0.7)" }}
+              >
+                Login
+              </button>
+            </Link>
+          )}
+        </div>
+      )}
       <div
         style={{
           position: "absolute",
@@ -198,7 +246,7 @@ export default function HomePage(props: PropTypes) {
           alignItems: "flex-start",
           height: "100vh",
           width: "100vw",
-          zIndex: 1000,
+          zIndex: 999,
         }}
       >
         <div style={{ margin: "auto", marginBottom: "5px" }}>
@@ -211,16 +259,10 @@ export default function HomePage(props: PropTypes) {
             }}
           >
             <Link to="/events">
-              <button
-              className="btn_home"
-              >
-                Explore Events
-              </button>
+              <button className="btn_home">Explore Events</button>
             </Link>
           </div>
-          {props.user.isLoggedIn && (
-            <div>User isLoggedIn with email {props.user.email}</div>
-          )}
+
           <div
             style={{
               display: "flex",

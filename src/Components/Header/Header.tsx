@@ -60,7 +60,9 @@ function Header(props: HeaderProps) {
             <Link to="/login">
             <Button
             data-test-id='login-btn'
-             type="primary">
+             type="primary"
+             size="small">
+          
 
                 Login
             </Button>
