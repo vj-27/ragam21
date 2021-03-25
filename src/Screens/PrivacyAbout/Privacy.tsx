@@ -4,6 +4,7 @@ import { EventCategories, PropTypes } from "../../data";
 import EventCategoryCard from "../../Components/EventCategoryCard/EventCategoryCard";
 import { useHistory } from "react-router-dom";
 import { Card, Typography } from "antd";
+import defImg from "../../assets/header_default.jpg";
 export default function PrivacyPage(props: PropTypes) {
   //we are not handling error.. if its error, it will show loading..
   return (
@@ -11,7 +12,7 @@ export default function PrivacyPage(props: PropTypes) {
       <Header
         showBack={true}
         mainText="Privacy"
-        dashimg="https://wallpaperaccess.com/full/1261637.png"
+        dashimg={defImg}
         user={props.user}
       />
       <Card style={{ width: "700px", maxWidth: "95vw", margin: "auto" }}>

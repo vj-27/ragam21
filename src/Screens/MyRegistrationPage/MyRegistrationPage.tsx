@@ -37,19 +37,17 @@ interface MyRegProps extends PropTypes {
   getUserEvents: () => void;
 }
 
-function getString(stats:string){
-if(stats=="participating") return("Registered")
-if(stats=="knocked_out") return("Entry  Knocked Out")
-if(stats=="position_1") return("First Prize Entry")
-if(stats=="position_2") return("Runner Up")
-if(stats=="position_3") return("Second Runner Up")
-if(stats=="consolation") return("Consolation Prize")
- return "";
-
-
+function getString(stats: string) {
+  if (stats == "participating") return "Registered";
+  if (stats == "knocked_out") return "Entry  Knocked Out";
+  if (stats == "position_1") return "First Prize Entry";
+  if (stats == "position_2") return "Runner Up";
+  if (stats == "position_3") return "Second Runner Up";
+  if (stats == "consolation") return "Consolation Prize";
+  return "";
 }
 function getDefaultfileList(listArr: RegEventDetail["submissions"]) {
-  let myArr:UploadFile<any>[] = [];
+  let myArr: UploadFile<any>[] = [];
   if (listArr)
     for (let i in listArr) {
       myArr.push({
@@ -79,7 +77,7 @@ export default function MyRegistationPage(props: MyRegProps) {
   const [visibleModal, setVisibleModal] = useState(false);
   const [removePromise, setRemovePromise] = useState<any>();
   const [fileX, setfileX] = useState<UploadFile>();
-  const [filelistX,setfilelistX] = useState<UploadFile[]>([]);
+  const [filelistX, setfilelistX] = useState<UploadFile[]>([]);
   function handleRemove(file: UploadFile) {
     setVisibleModal(true);
     setfileX(file);
@@ -164,16 +162,19 @@ export default function MyRegistationPage(props: MyRegProps) {
   // Modal
   const handleOkModalRemove = useCallback(() => {
     if (!userEvent || !fileX || !eventDetails) return; //shoud=ld never happer!!
-    if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) < -15*60*1000) {
+    if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) < -15 * 60 * 1000) {
       message.error("Submission time has ended.");
       removePromise.resolve(false);
       setVisibleModal(false);
       return;
-    }else if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) > -15*60*1000 && dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0){
+    } else if (
+      dayjs(eventDetails.submissionEndDate).diff(dayjs()) > -15 * 60 * 1000 &&
+      dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0
+    ) {
       //message.warning("Submission marked as Late!!",6);
-      console.log("HEREERERRERERR")
+      console.log("HEREERERRERERR");
     }
-    let mySubs:RegEventDetail["submissions"] = [];
+    let mySubs: RegEventDetail["submissions"] = [];
 
     for (let i in userEvent.submissions) {
       if (userEvent.submissions[i].id != parseInt(fileX.uid, 10)) {
@@ -203,7 +204,7 @@ export default function MyRegistationPage(props: MyRegProps) {
             setVisibleModal(false);
           } else {
             message.success("file " + fileX.name + " removed successfully.");
-            const myUserEvent ={...userEvent,submissions:mySubs};
+            const myUserEvent = { ...userEvent, submissions: mySubs };
             setUserEvent(myUserEvent);
             setfilelistX(getDefaultfileList(mySubs));
             setVisibleModal(false);
@@ -244,13 +245,15 @@ export default function MyRegistationPage(props: MyRegProps) {
   const uploadImage = async (options: any) => {
     if (!userEvent || !eventDetails) return;
     const { onSuccess, onError, file, onProgress } = options;
-    if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) < -15*60*1000) {
+    if (dayjs(eventDetails.submissionEndDate).diff(dayjs()) < -15 * 60 * 1000) {
       message.error("Submission time has ended.");
       onError("Submission time has ended");
       return;
-    }else if(dayjs(eventDetails.submissionEndDate).diff(dayjs()) > -15*60*1000 && dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0){
-      message.warning("Submission marked as late",6)
-
+    } else if (
+      dayjs(eventDetails.submissionEndDate).diff(dayjs()) > -15 * 60 * 1000 &&
+      dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0
+    ) {
+      message.warning("Submission marked as late", 6);
     }
 
     const fmData = new FormData();
@@ -267,14 +270,21 @@ export default function MyRegistationPage(props: MyRegProps) {
     fmData.append("refId", userEvent.id.toString());
     fmData.append("files", file);
     const myFileList = [...filelistX];
-    myFileList.push({uid:file.uid,size:file.size,percent:0,status:"uploading",name:file.name,type:file.type})
-    setfilelistX(myFileList)
+    myFileList.push({
+      uid: file.uid,
+      size: file.size,
+      percent: 0,
+      status: "uploading",
+      name: file.name,
+      type: file.type,
+    });
+    setfilelistX(myFileList);
     console.log(file);
     try {
       const res = await axios.post(backendURI + "upload", fmData, config);
       onSuccess("Ok");
       console.log("server res: ", res);
-      const myUserEvent ={...userEvent};
+      const myUserEvent = { ...userEvent };
       myUserEvent.submissions.push(res.data[0]);
       setUserEvent(myUserEvent);
       setfilelistX(getDefaultfileList(myUserEvent.submissions));
@@ -297,16 +307,15 @@ export default function MyRegistationPage(props: MyRegProps) {
       .then(
         (result) => {
           console.log(result);
-          if(result.statusCode){
+          if (result.statusCode) {
             message.error(result.message, 5);
+          } else {
+            //verify the result
+            setLoading(false);
+            setUserEvent(result);
+            setfilelistX(getDefaultfileList(result.submissions));
+            console.log(result);
           }
-           else {
-          //verify the result
-          setLoading(false);
-          setUserEvent(result);
-          setfilelistX(getDefaultfileList(result.submissions));
-          console.log(result);
-           }
         },
         (error) => {
           console.log(error);
@@ -377,7 +386,7 @@ export default function MyRegistationPage(props: MyRegProps) {
   const history = useHistory();
   return (
     <div>
-      <Loading loading={loading || props.catLoading }/>
+      <Loading loading={loading || props.catLoading} />
       <Header
         mainText={eventDetails ? eventDetails.name : "Loading..."}
         showBack={true}
@@ -400,7 +409,11 @@ export default function MyRegistationPage(props: MyRegProps) {
               }}
             >
               <h3>
-                {userEvent.status=="participating" || userEvent.status=="knocked_out"?  "Status: ": "Result: "}  <b>{getString(userEvent.status)}</b>{" "}
+                {userEvent.status == "participating" ||
+                userEvent.status == "knocked_out"
+                  ? "Status: "
+                  : "Result: "}{" "}
+                <b>{getString(userEvent.status)}</b>{" "}
               </h3>
 
               {(eventDetails?.metaTitles?.length ||
@@ -419,11 +432,20 @@ export default function MyRegistationPage(props: MyRegProps) {
                       <div key={val}>
                         <br />
                         <h3 style={{ fontWeight: "bold" }}> {val} </h3>
-                        <h4>
-                          {(userEvent.metaValues && userEvent.metaValues[index])
-                            ? userEvent.metaValues[index]
-                            : "Not Available "}
-                        </h4>
+
+                        {userEvent.metaValues && userEvent.metaValues[index] ? (
+                          userEvent.metaValues[index].startsWith("http") ? (
+                            <a href={userEvent.metaValues[index]}>
+                              <h4>
+                                <u>{userEvent.metaValues[index]}</u>
+                              </h4>
+                            </a>
+                          ) : (
+                            <h4>{userEvent.metaValues[index]}</h4>
+                          )
+                        ) : (
+                          <h4>Not Available </h4>
+                        )}
                       </div>
                     );
                   })}
@@ -453,62 +475,75 @@ export default function MyRegistationPage(props: MyRegProps) {
                     marginTop: "25px",
                   }}
                 >
-                  {eventDetails && dayjs(eventDetails.submissionStartDate).diff(dayjs()) > 0 ?
-                  <div>
-                  {"Submissions open on: " +
-                    dayjs(eventDetails.submissionStartDate).format("DD MMMM hh:mm a")}
-                </div>
-                  :
-                  dayjs(eventDetails.submissionEndDate).diff(dayjs()) < 0 ? (
+                  {eventDetails &&
+                  dayjs(eventDetails.submissionStartDate).diff(dayjs()) > 0 ? (
+                    <div>
+                      {"Submissions open on: " +
+                        dayjs(eventDetails.submissionStartDate).format(
+                          "DD MMMM hh:mm a"
+                        )}
+                    </div>
+                  ) : dayjs(eventDetails.submissionEndDate).diff(dayjs()) <
+                    0 ? (
                     <div>Submissions closed</div>
                   ) : (
                     <div>
                       {"Submissions close on: " +
-                        dayjs(eventDetails.submissionEndDate).format("DD MMMM hh:mm a")}
+                        dayjs(eventDetails.submissionEndDate).format(
+                          "DD MMMM hh:mm a"
+                        )}
                     </div>
                   )}
 
-                  {eventDetails?.isSubmissionEvent && dayjs(eventDetails.submissionStartDate).diff(dayjs())<0 && (
-                    <div>
-                      <Modal
-                        title="Delete file"
-                        visible={visibleModal}
-                        onOk={handleOkModalRemove}
-                        onCancel={handleCancelModalRemove}
-                      >
-                        <p>Are you sure you want to remove this file? </p>
-                      </Modal>
-                      <Upload.Dragger
-                        id="myreg_upload_component"
-                        style={{ marginTop: "15px" }}
-                        customRequest={uploadImage}
-                        onChange={handleChange}
-                        listType="picture"
-                        className="upload-list-inline"
-                        progress={{ showInfo: true }}
-                        defaultFileList={getDefaultfileList(
-                          userEvent.submissions
-                        )}
-                        fileList={filelistX}
-                        onRemove={(file: UploadFile) => handleRemove(file)}
-                        multiple={true}
-                        beforeUpload={(file,filelst)=>{
-                          let sz = file.size;
-                          sz = sz/1000000;
-                          if(sz<= eventDetails.maxFileSize)
-                          return true
-                          else{message.error("File size exceeds the limit of "+eventDetails.maxFileSize+"MB,"); return false}
-                        }}
-                      >
-                        <p className="ant-upload-drag-icon">
-                          <InboxOutlined />
-                        </p>
-                        <p className="ant-upload-text">
-                          Click / Drag and Drop to Upload
-                        </p>
-                      </Upload.Dragger>
-                    </div>
-                  )}
+                  {eventDetails?.isSubmissionEvent &&
+                    dayjs(eventDetails.submissionStartDate).diff(dayjs()) <
+                      0 && (
+                      <div>
+                        <Modal
+                          title="Delete file"
+                          visible={visibleModal}
+                          onOk={handleOkModalRemove}
+                          onCancel={handleCancelModalRemove}
+                        >
+                          <p>Are you sure you want to remove this file? </p>
+                        </Modal>
+                        <Upload.Dragger
+                          id="myreg_upload_component"
+                          style={{ marginTop: "15px" }}
+                          customRequest={uploadImage}
+                          onChange={handleChange}
+                          listType="picture"
+                          className="upload-list-inline"
+                          progress={{ showInfo: true }}
+                          defaultFileList={getDefaultfileList(
+                            userEvent.submissions
+                          )}
+                          fileList={filelistX}
+                          onRemove={(file: UploadFile) => handleRemove(file)}
+                          multiple={true}
+                          beforeUpload={(file, filelst) => {
+                            let sz = file.size;
+                            sz = sz / 1000000;
+                            if (sz <= eventDetails.maxFileSize) return true;
+                            else {
+                              message.error(
+                                "File size exceeds the limit of " +
+                                  eventDetails.maxFileSize +
+                                  "MB,"
+                              );
+                              return false;
+                            }
+                          }}
+                        >
+                          <p className="ant-upload-drag-icon">
+                            <InboxOutlined />
+                          </p>
+                          <p className="ant-upload-text">
+                            Click / Drag and Drop to Upload
+                          </p>
+                        </Upload.Dragger>
+                      </div>
+                    )}
                 </Card>
               )}
               {eventDetails && (
@@ -528,7 +563,7 @@ export default function MyRegistationPage(props: MyRegProps) {
           </>
         )
       )}
-      <Footer/>
+      <Footer />
     </div>
   );
 }

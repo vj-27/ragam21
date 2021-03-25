@@ -316,23 +316,24 @@ export default function EventDetails(props: EventDetailsProps) {
                     )}
                   </Card>
                 </TabPane>
-                {props.categories[catCount].events[eventCount].result && (
+                
                   <TabPane
-                    tab="Results"
+                    tab="Announcements"
                     key="4"
                     style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                   >
 
                     <Card data-test-id='result-card' className="card">
 
-                      {NewlineText(
+                      {props.categories[catCount].events[eventCount].result? 
+                      NewlineText(
                         props.categories[catCount].events[eventCount].result
                       ).map((val) => {
                         return val;
-                      })}
+                      }):"Nothing here yet"}
                     </Card>
                   </TabPane>
-                )}
+                )
               </Tabs>
             </div>
           </>

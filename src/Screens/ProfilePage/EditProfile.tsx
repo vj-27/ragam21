@@ -4,6 +4,7 @@ import Header from "../../Components/Header/Header";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import Footer from "../../Components/Footer/Footer";
 
+import defImg from "../../assets/header_default.jpg";
 import { useHistory, useParams } from "react-router-dom";
 interface EditProps extends PropTypes {
   getUserEvents: () => void;
@@ -47,7 +48,7 @@ export default function EditProfile(props: EditProps) {
         <Header
           showBack={true}
           mainText="Edit User Profile"
-          dashimg="https://wallpaperaccess.com/full/1261637.png"
+          dashimg={defImg}
           user={props.user}
         />
       </div>
