@@ -420,7 +420,7 @@ export default function MyRegistationPage(props: MyRegProps) {
                         <br />
                         <h3 style={{ fontWeight: "bold" }}> {val} </h3>
                         <h4>
-                          {userEvent.metaValues[index]
+                          {(userEvent.metaValues && userEvent.metaValues[index])
                             ? userEvent.metaValues[index]
                             : "Not Available "}
                         </h4>
