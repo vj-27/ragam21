@@ -231,9 +231,7 @@ export default function EventDetails(props: EventDetailsProps) {
               <Tabs
                 defaultActiveKey="1"
                 centered
-                tabBarGutter={
-                  props.categories[catCount].events[eventCount].result ? 24 : 36
-                }
+                tabBarGutter={16}
               >
                 <TabPane
                   tab="Description"
