@@ -2,8 +2,8 @@ import React from "react";
 import { Card } from "antd";
 import {Link} from 'react-router-dom';
 import {backendURI, Cats} from '../../data';
-
-function EventCategoryCard(props:Cats) {
+import allEvents from "../../assets/header_default.jpg";
+function EventCategoryCard(props:Cats|{slug:"all-events",name:null,bgImage:null}) {
   return (
     <Link to={"category/"+props.slug} id={"EventCategoryCard_"+props.slug}>
     <div className="catCard_mainWrapper">
@@ -11,7 +11,7 @@ function EventCategoryCard(props:Cats) {
         <Card
           className="catcard"
           style={{
-            backgroundImage: `url("${backendURI.slice(0, -1) + props.bgImage?.url}")`,
+            backgroundImage: props.slug!="all-events"?`url("${backendURI.slice(0, -1) + props.bgImage?.url}")`:`url("${allEvents}")` ,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -28,7 +28,7 @@ function EventCategoryCard(props:Cats) {
         >
           <div className="categorytext">
             <h1 style={{color:"#ffffff",margin:0}}>
-              <b>{props.name}</b>
+              <b>{ props.slug!="all-events"?props.name:"All Events"}</b>
             </h1>
           </div>
         </Card>

@@ -22,6 +22,7 @@ export default function EventsPage(props: PropTypes) {
       ) : (
         <>
         <div style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}>
+          <EventCategoryCard slug="all-events" name={null} bgImage={null}/>
           {props.categories.map((value) => {
             return <EventCategoryCard {...value} key={value.slug} />;
           })}

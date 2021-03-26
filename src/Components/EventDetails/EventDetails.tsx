@@ -287,7 +287,8 @@ export default function EventDetails(props: EventDetailsProps) {
                 >
 
                   <Card data-test-id='rules-card' className="card">
-
+                    <a href="https://api.ragam.live/uploads/Event_Guidelines_R_21_8db4dbf52f.pdf" target="_blank" ><h4> General guidelines: <u>see here</u></h4></a>
+                    <h4 style={{marginTop:"10px"}}><u>Event Guidelines</u></h4>
                     {NewlineText(
                       props.categories[catCount].events[eventCount].rules
                     ).map((val) => {
