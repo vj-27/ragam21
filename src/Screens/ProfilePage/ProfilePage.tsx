@@ -6,6 +6,13 @@ import useFitText from "use-fit-text";
 import EventCard from "../../Components/EventCard/EventCard";
 import { useHistory, Link } from "react-router-dom";
 import Footer from "../../Components/Footer/Footer";
+function getgender(gen:string){
+  if(!gen) return "Prefer not to say"
+  if(gen=="male") return "Male"
+  if(gen=="female") return "Female"
+  if(gen=="other") return "Other"
+  if(gen=="prefer_not_to_say") return "Prefer not to say"
+}
 export default function ProfilePage(props: PropTypes) {
   const { fontSize, ref } = useFitText({ maxFontSize: 200, minFontSize: 80 });
   const [myEvents, setMyEvents] = useState<EventDetailsType[]>([]);
@@ -40,8 +47,11 @@ export default function ProfilePage(props: PropTypes) {
               dataSource={[
                 { left: "RagamId", right: props.userDetails?.ragamID },
                 { left: "Name", right: props.userDetails?.name },
+                { left: "Gender", right: getgender(props.userDetails.gender) },
                 { left: "College", right: props.userDetails?.collegeName },
                 { left: "Phone", right: props.userDetails?.phoneNumber },
+                { left: "Referral Code", right: props.userDetails?.referralCode },
+
               ]}
               size="small"
               pagination={false}
@@ -90,7 +100,7 @@ export default function ProfilePage(props: PropTypes) {
             {myEvents.map((value) => {
               return (
                   <Link to={"/event/" + value.slug} id={"profile_eventcard_"+value.slug} key={value.slug}>
-                    <div className="catCard_mainWrapper">
+                    <div className="catCard_mainWrapper"  key={value.slug}>
                       <Card
                         className="catcard"
                         style={{

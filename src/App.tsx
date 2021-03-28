@@ -36,6 +36,7 @@ function App() {
     updated_at: "",
     ragamID: "",
     collegeName: "",
+    referralCode:"",
     gender: "",
     eventDetails: Array<{
       id: 0;
@@ -55,6 +56,7 @@ function App() {
       created_at: "",
       updated_at: "",
       ragamID: "",
+      referralCode:"",
       collegeName: "",
       gender: "",
       eventDetails: [],
@@ -98,7 +100,7 @@ function App() {
         },
         //handle 401 here
       })
-        .then((res) => {if(res.status!==200) message.error("Some Error Occurred") ; return res.json()})
+        .then((res) => res.json())
         .then((result) => {
           if (result.statusCode == 401) {
             onLogout({

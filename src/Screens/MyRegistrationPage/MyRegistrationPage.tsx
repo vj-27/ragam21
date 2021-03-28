@@ -499,6 +499,7 @@ export default function MyRegistationPage(props: MyRegProps) {
                     dayjs(eventDetails.submissionStartDate).diff(dayjs()) <
                       0 && (
                       <div>
+                        <p>File size limit: {eventDetails.maxFileSize} MB</p>
                         <Modal
                           title="Delete file"
                           visible={visibleModal}

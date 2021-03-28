@@ -1,7 +1,7 @@
 import { PropTypes, onLogout, backendURI } from "../../data";
-import { Button, Input, message, Table } from "antd";
+import { Button, Input, message, Table,Select } from "antd";
 import Header from "../../Components/Header/Header";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Footer from "../../Components/Footer/Footer";
 
 import defImg from "../../assets/header_default.jpg";
@@ -19,6 +19,7 @@ interface EditProps extends PropTypes {
       ragamID: string;
       collegeName: string;
       gender: string;
+      referralCode: string;
       eventDetails: {
         id: 0;
         event: 0;
@@ -39,6 +40,15 @@ export default function EditProfile(props: EditProps) {
   const [name, setName] = useState(props.userDetails.name);
   const [college, setCollege] = useState(props.userDetails.collegeName);
   const [phoneNumber, setPhoneNumber] = useState(props.userDetails.phoneNumber);
+  const [referralCode, setreferralCode] = useState(props.userDetails.referralCode);
+  const [gender,setGender] = useState(props.userDetails.gender);
+  useEffect(()=>{
+    setName(props.userDetails.name);
+    setCollege(props.userDetails.collegeName);
+    setPhoneNumber(props.userDetails.phoneNumber);
+    setreferralCode(props.userDetails.referralCode);
+    setGender(props.userDetails.gender);
+  },[props.userDetails])
   const [msg, setMsg] = useState("");
   const re = /^[0-9]{10}$/;
 
@@ -79,6 +89,21 @@ export default function EditProfile(props: EditProps) {
                   ),
                 },
                 {
+                  left: "Gender",
+                  right: (
+                    <Select size="large" defaultValue={props.userDetails.gender?props.userDetails.gender:"prefer_not_to_say"} onChange={(e)=>{
+                      setGender(e);
+                      console.log(e);
+                    }}>
+                      <Select.Option value="prefer_not_to_say">Prefer not to say</Select.Option>
+                      <Select.Option value="male">Male</Select.Option>
+                      <Select.Option value="female">Female</Select.Option>
+                      <Select.Option value="other">Other</Select.Option>
+
+                      </Select>
+                  ),
+                },
+                {
                   left: "College",
                   right: (
                     <Input
@@ -100,6 +125,19 @@ export default function EditProfile(props: EditProps) {
                       placeholder="10 digit Phone"
                       onChange={(e) => {
                         setPhoneNumber(e.target.value);
+                      }}
+                    />
+                  ),
+                },
+                {
+                  left: "Referral Code",
+                  right: (
+                    <Input
+                      data-test-id='ref-inp'
+                      defaultValue={props.userDetails.referralCode}
+                      placeholder="Optional"
+                      onChange={(e) => {
+                        setreferralCode(e.target.value);
                       }}
                     />
                   ),
@@ -155,6 +193,8 @@ export default function EditProfile(props: EditProps) {
                       name: name,
                       phoneNumber: phoneNumber,
                       collegeName: college,
+                      gender: gender,
+                      referralCode: referralCode
                     }),
                   })
                     .then((res) => res.json())
