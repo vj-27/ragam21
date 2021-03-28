@@ -209,7 +209,7 @@ export default function EditProfile(props: EditProps) {
                           message.success("Profile updated successfully",5)
                           props.setUserDetails(result);
                           if (eId) history.push("/event/" + eId);
-                          else history.push("/events");
+                          else history.push("/profile");
                         }
                         console.log(result);
                       },
