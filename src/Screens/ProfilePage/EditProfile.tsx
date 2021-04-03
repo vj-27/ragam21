@@ -104,12 +104,12 @@ export default function EditProfile(props: EditProps) {
                   ),
                 },
                 {
-                  left: "College",
+                  left: "Institute Name",
                   right: (
                     <Input
                       data-test-id='college-inp'
                       defaultValue={props.userDetails.collegeName}
-                      placeholder="College Name"
+                      placeholder="Institute Name"
                       onChange={(e) => {
                         setCollege(e.target.value);
                       }}
@@ -180,8 +180,8 @@ export default function EditProfile(props: EditProps) {
               onClick={() => {
                 if (!name) message.error("Enter a valid name",5);
                 else if (!college) message.error("Enter a valid college name",5);
-                else if (!phoneNumber || !phoneNumber.match(re))
-                  message.error("Enter a valid 10 digit phone number",5);
+                else if (!phoneNumber)
+                  message.error("Enter a valid phone number",5);
                 else {
                   fetch(backendURI + "users/" + props.userDetails.id, {
                     method: "PUT",

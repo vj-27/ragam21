@@ -48,7 +48,7 @@ export default function ProfilePage(props: PropTypes) {
                 { left: "RagamId", right: props.userDetails?.ragamID },
                 { left: "Name", right: props.userDetails?.name },
                 { left: "Gender", right: getgender(props.userDetails.gender) },
-                { left: "College", right: props.userDetails?.collegeName },
+                { left: "Institute Name", right: props.userDetails?.collegeName },
                 { left: "Phone", right: props.userDetails?.phoneNumber },
                 { left: "Referral Code", right: props.userDetails?.referralCode },
 
