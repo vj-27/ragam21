@@ -169,7 +169,7 @@ export interface EventDetailsType {
   submissionEndDate: string;
   submissionStartDate: string;
   description: string;
-  maxFileSize: number,
+  maxFileSize: number;
   isTeamEvent: boolean;
   rules: string;
   isRegOpen: boolean;
@@ -198,50 +198,50 @@ export interface EventDetailsType {
     width: number;
     height: number;
     formats: {
-        thumbnail?: {
-          name: string;
-          hash: string;
-          ext: string;
-          mime: string;
-          width: number;
-          height: number;
-          size: number;
-          path: null;
-          url: string;
-        };
-        medium?: {
-          name: string;
-          hash: string;
-          ext: string;
-          mime: string;
-          width: number;
-          height: number;
-          size: number;
-          path: null;
-          url: string;
-        };
-        small?: {
-          name: string;
-          hash: string;
-          ext: string;
-          mime: string;
-          width: number;
-          height: number;
-          size: number;
-          path: null;
-          url: string;
-        };
-        large?: {
-          name: string;
-          hash: string;
-          ext: string;
-          mime: string;
-          width: number;
-          height: number;
-          size: number;
-          path: null;
-          url: string;
-        };
+      thumbnail?: {
+        name: string;
+        hash: string;
+        ext: string;
+        mime: string;
+        width: number;
+        height: number;
+        size: number;
+        path: null;
+        url: string;
+      };
+      medium?: {
+        name: string;
+        hash: string;
+        ext: string;
+        mime: string;
+        width: number;
+        height: number;
+        size: number;
+        path: null;
+        url: string;
+      };
+      small?: {
+        name: string;
+        hash: string;
+        ext: string;
+        mime: string;
+        width: number;
+        height: number;
+        size: number;
+        path: null;
+        url: string;
+      };
+      large?: {
+        name: string;
+        hash: string;
+        ext: string;
+        mime: string;
+        width: number;
+        height: number;
+        size: number;
+        path: null;
+        url: string;
+      };
     };
     hash: string;
     ext: string;
@@ -262,50 +262,50 @@ export interface EventDetailsType {
     width: number;
     height: number;
     formats: {
-        thumbnail?: {
-          name: string;
-          hash: string;
-          ext: string;
-          mime: string;
-          width: number;
-          height: number;
-          size: number;
-          path: null;
-          url: string;
-        };
-        medium?: {
-          name: string;
-          hash: string;
-          ext: string;
-          mime: string;
-          width: number;
-          height: number;
-          size: number;
-          path: null;
-          url: string;
-        };
-        small?: {
-          name: string;
-          hash: string;
-          ext: string;
-          mime: string;
-          width: number;
-          height: number;
-          size: number;
-          path: null;
-          url: string;
-        };
-        large?: {
-          name: string;
-          hash: string;
-          ext: string;
-          mime: string;
-          width: number;
-          height: number;
-          size: number;
-          path: null;
-          url: string;
-        };
+      thumbnail?: {
+        name: string;
+        hash: string;
+        ext: string;
+        mime: string;
+        width: number;
+        height: number;
+        size: number;
+        path: null;
+        url: string;
+      };
+      medium?: {
+        name: string;
+        hash: string;
+        ext: string;
+        mime: string;
+        width: number;
+        height: number;
+        size: number;
+        path: null;
+        url: string;
+      };
+      small?: {
+        name: string;
+        hash: string;
+        ext: string;
+        mime: string;
+        width: number;
+        height: number;
+        size: number;
+        path: null;
+        url: string;
+      };
+      large?: {
+        name: string;
+        hash: string;
+        ext: string;
+        mime: string;
+        width: number;
+        height: number;
+        size: number;
+        path: null;
+        url: string;
+      };
     };
     hash: string;
     ext: string;

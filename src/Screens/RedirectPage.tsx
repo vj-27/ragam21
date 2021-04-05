@@ -11,10 +11,10 @@ const RedirectPage = (props: PropTypes) => {
       return;
     }
     console.log(location.search);
-    if (formRef.current) {
+    if (formRef.current && props.user.token) {
       formRef.current.submit();
     }
-  }, [location, formRef]);
+  }, [location, formRef, props.user]);
   return (
     <div>
       <form
