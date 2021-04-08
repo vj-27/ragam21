@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Header from "../../Components/Header/Header";
 import { EventCategories, PropTypes } from "../../data";
 import EventCategoryCard from "../../Components/EventCategoryCard/EventCategoryCard";
-import { useHistory } from "react-router-dom";
-import { Card, Typography } from "antd";
+import { Link, useHistory } from "react-router-dom";
+import { Button, Card, Typography } from "antd";
 import defImg from "../../assets/header_default.jpg";
 export default function AboutPage(props: PropTypes) {
   //we are not handling error.. if its error, it will show loading..
@@ -26,6 +26,18 @@ export default function AboutPage(props: PropTypes) {
           flame within you all to strive, to seek and to not yield in the face
           of adversity.
         </Typography.Paragraph>
+        <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between",paddingTop:"20px"}}>
+        <Link to="/contacts">
+        <Button type="primary">
+          Contacts
+        </Button>
+        </Link>
+        <a href="https://api.ragam.live/uploads/Brochure_compressed_5a7e1c75d3.pdf">
+        <Button type="primary">
+          Marketing Brochure
+        </Button>
+        </a>
+        </div>
       </Card>
     </>
   );

@@ -17,6 +17,7 @@ import PrivacyPage from "./Screens/PrivacyAbout/Privacy";
 import AboutPage from "./Screens/PrivacyAbout/About";
 import LoginPage from "./Screens/LoginPage";
 import TermsPage from "./Screens/PrivacyAbout/ToS";
+import ContactsPage from "./Screens/PrivacyAbout/Contacts";
 function App() {
   const [categories, setCategories] = useState<Cats[]>([]);
   const [catLoading, setCatloading] = useState(true);
@@ -193,6 +194,15 @@ function App() {
           </Route>
           <Route path="/about">
             <AboutPage
+              categories={categories}
+              catLoading={catLoading}
+              userDetails={userDetails}
+              user={user}
+              setUser={setUser}
+            />
+          </Route>
+          <Route path="/contacts">
+            <ContactsPage
               categories={categories}
               catLoading={catLoading}
               userDetails={userDetails}

@@ -207,6 +207,24 @@ export default function HomePage(props: PropTypes) {
     <>
       <Loading loading={loading} />
       <div ref={mount} style={{ width: "100vw", height: "100vh" }}></div>
+      <div
+          style={{
+            position: "absolute",
+            zIndex: 1000,
+            marginTop: "15px",
+            left: "15px",
+            display:"flex"
+          }}
+        >
+          <Link to="/about">
+              <button
+                className="btn_home"
+                style={{ margin: "auto", transform: "scale(0.7)" }}
+              >
+                About
+              </button>
+            </Link>
+        </div>
       {!loading && (
         <div
           style={{
@@ -281,9 +299,6 @@ export default function HomePage(props: PropTypes) {
             >
               <Link to="/privacy" style={{ marginRight: "15px" }}>
                 <h4>Privacy</h4>
-              </Link>
-              <Link to="/about" style={{ marginRight: "15px" }}>
-                <h4>About</h4>
               </Link>
               <Link to="/termsofservice">
                 <h4>Terms of Service</h4>
