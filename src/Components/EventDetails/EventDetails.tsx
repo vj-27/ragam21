@@ -322,14 +322,12 @@ export default function EventDetails(props: EventDetailsProps) {
                     style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                   >
 
-                    <Card data-test-id='result-card' className="card">
+                    <Card data-test-id='result-card'  >
 
                       {props.categories[catCount].events[eventCount].result? 
-                      NewlineText(
-                        props.categories[catCount].events[eventCount].result
-                      ).map((val) => {
-                        return val;
-                      }):"Nothing here yet"}
+                     <div style={{whiteSpace:"pre-wrap"}} className="card-result">{props.categories[catCount].events[eventCount].result}
+                       </div> 
+                      :"Nothing here yet"}
                     </Card>
                   </TabPane>
                 )
