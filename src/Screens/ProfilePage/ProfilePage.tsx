@@ -13,6 +13,29 @@ function getgender(gen:string){
   if(gen=="other") return "Other"
   if(gen=="prefer_not_to_say") return "Prefer not to say"
 }
+function getString(stats: string) {
+  
+  if (stats == "position_1") return "First Prize Entry";
+  if (stats == "position_2") return "Runner Up";
+  if (stats == "position_3") return "Second Runner Up";
+  return "";
+}
+function getStatus(id: number,eventdetails: {
+  id: number;
+  event: number;
+  status: string;
+  published_at: string;
+  created_at: string;
+  updated_at: string;
+}[]){
+  for (let i in eventdetails){
+    if(eventdetails[i].event === id){
+      return getString(eventdetails[i].status)
+    }
+  }
+  return "";
+
+}
 export default function ProfilePage(props: PropTypes) {
   const { fontSize, ref } = useFitText({ maxFontSize: 200, minFontSize: 80 });
   const [myEvents, setMyEvents] = useState<EventDetailsType[]>([]);
@@ -120,10 +143,13 @@ export default function ProfilePage(props: PropTypes) {
                         }}
                         hoverable={true}
                       >
-                        <div className="categorytext">
+                        <div className="categorytext" style={{display:"flex",flexDirection:"column"}}>
                           <h1 style={{ color: "#ffffff", margin: 0 }}>
                             <b>{value.name}</b>
                           </h1>
+                          <h4>
+                            {getStatus(value.id,props.userDetails.eventDetails)}
+                          </h4>
                         </div>
                       </Card>
                     </div>

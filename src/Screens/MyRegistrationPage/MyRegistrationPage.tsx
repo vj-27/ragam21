@@ -37,14 +37,13 @@ interface MyRegProps extends PropTypes {
   getUserEvents: () => void;
 }
 
+
 function getString(stats: string) {
-  if (stats == "participating") return "Registered";
-  if (stats == "knocked_out") return "Entry  Knocked Out";
+  
   if (stats == "position_1") return "First Prize Entry";
   if (stats == "position_2") return "Runner Up";
   if (stats == "position_3") return "Second Runner Up";
-  if (stats == "consolation") return "Consolation Prize";
-  return "";
+  return "Event ended";
 }
 function getDefaultfileList(listArr: RegEventDetail["submissions"]) {
   let myArr: UploadFile<any>[] = [];

@@ -317,7 +317,7 @@ export default function EventDetails(props: EventDetailsProps) {
                 </TabPane>
                 
                   <TabPane
-                    tab="Announcements"
+                    tab="Results"
                     key="4"
                     style={{ width: "800px", maxWidth: "95vw", margin: "auto" }}
                   >
