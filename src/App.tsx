@@ -12,6 +12,7 @@ import RedirectPage from "./Screens/RedirectPage";
 import { backendURI, Cats, onLogout } from "./data";
 import dayjs from "dayjs";
 import EditProfile from "./Screens/ProfilePage/EditProfile";
+import Certificates from "./Screens/Certificates/Certificates";
 import { message } from "antd";
 import PrivacyPage from "./Screens/PrivacyAbout/Privacy";
 import AboutPage from "./Screens/PrivacyAbout/About";
@@ -260,6 +261,9 @@ function App() {
               setUser={setUser}
               setUserDetails={setuserDetails}
             />
+          </Route>
+          <Route path="/certificates">
+            <Certificates/>
           </Route>
           <Route path="/login">
             <LoginPage />

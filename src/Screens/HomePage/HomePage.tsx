@@ -276,8 +276,11 @@ export default function HomePage(props: PropTypes) {
               justifyContent: "center",
             }}
           >
-            <Link to="/events">
+            <Link to="/events" style={{marginRight:"25px"}}>
               <button className="btn_home">Explore Events</button>
+            </Link>
+            <Link to="/certificates">
+              <button className="btn_home">Certificates</button>
             </Link>
           </div>
 
